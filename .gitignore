@@ -21,3 +21,6 @@ test-results/
 .superpowers/
 .DS_Store
 *.log
+
+# Lokale Datenbank
+.data/

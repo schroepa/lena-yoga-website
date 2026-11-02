@@ -1,0 +1,107 @@
+---
+/**
+ * Kurse (Prototyp für die Anbindung ans CMS). Das endgültige Design folgt in Schritt 4.
+ */
+import Button from '../components/Button.astro';
+import Base from '../layouts/Base.astro';
+import { ladeKurse } from '../lib/cms';
+
+const kurse = await ladeKurse();
+const gruppen = [
+  { ort: 'online', titel: 'Online über Sophies Safe Space' },
+  { ort: 'studio', titel: 'Im Studio vor Ort' },
+] as const;
+const tage: Record<string, string> = {
+  mo: 'Montag',
+  di: 'Dienstag',
+  mi: 'Mittwoch',
+  do: 'Donnerstag',
+  fr: 'Freitag',
+  sa: 'Samstag',
+  so: 'Sonntag',
+};
+---
+
+<Base
+  title="Kurse online und im Studio | Lena Yoga"
+  description="Yoga mit Lena online über Sophies Safe Space und im Studio. Alle Kurse für Menschen in jeder Körperform."
+  path="/kurse"
+>
+  <div class="container kurse">
+    <h1 class="text-heading-h1">Kurse online und im Studio</h1>
+
+    {gruppen.map((gruppe) => (
+      <section aria-labelledby={`kurse-${gruppe.ort}`}>
+        <h2 id={`kurse-${gruppe.ort}`} class="text-heading-h2">
+          {gruppe.titel}
+        </h2>
+        <ul class="kurs-liste">
+          {kurse
+            .filter((k) => k.ort === gruppe.ort)
+            .map((kurs) => (
+              <li class="kurs">
+                <div class="kurs__text">
+                  <p class="text-label-eyebrow kurs__zeit">
+                    {tage[kurs.wochentag]} · {kurs.uhrzeit} Uhr · {kurs.dauerMinuten} Min
+                  </p>
+                  <h3 class="text-heading-h3">{kurs.titel}</h3>
+                  <p class="text-body-default">{kurs.beschreibung}</p>
+                </div>
+                <Button
+                  stil="sekundaer"
+                  label="Platz sichern"
+                  href={kurs.buchungslink}
+                  ariaLabel={`${kurs.titel} buchen`}
+                />
+              </li>
+            ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .kurse {
+    display: grid;
+    gap: var(--spacing-layout-section-md);
+    padding-block: var(--spacing-layout-section-lg);
+  }
+
+  section {
+    display: grid;
+    gap: var(--spacing-xl);
+  }
+
+  .kurs-liste {
+    display: grid;
+    gap: var(--spacing-xl);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .kurs {
+    display: grid;
+    gap: var(--spacing-md);
+    align-items: center;
+  }
+
+  .kurs__text {
+    display: grid;
+    gap: var(--spacing-xs);
+    max-width: 42rem;
+  }
+
+  .kurs__zeit,
+  .kurs p {
+    color: var(--text-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .kurs {
+      grid-template-columns: 1fr auto;
+      gap: var(--spacing-xl);
+    }
+  }
+</style>
