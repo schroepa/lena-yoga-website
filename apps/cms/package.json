@@ -13,7 +13,8 @@
     "migrate:create": "payload migrate:create",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "build:vercel": "payload migrate && next build"
+    "build:vercel": "DATABASE_URL=\"${DATABASE_URL_UNPOOLED:-$DATABASE_URL}\" payload migrate && next build",
+    "admin:anlegen": "payload run src/scripts/admin-anlegen.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.92.1",

@@ -35,7 +35,8 @@ export default buildConfig({
   editor: lexicalEditor(),
   secret: umgebung.secret,
   db: postgresAdapter({
-    pool: { connectionString: umgebung.datenbank },
+    // Wenige Verbindungen pro Instanz, weil jede Anfrage als eigene Serverless-Funktion laufen kann.
+    pool: { connectionString: umgebung.datenbank, max: 5 },
     // Im Betrieb ändert sich das Schema nur über geprüfte Migrationen.
     push: !umgebung.istProduktion,
     migrationDir: path.resolve(dirname, 'migrations'),

@@ -4,6 +4,7 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vites
 
 import config from '../src/payload.config';
 import { berechneLesezeit } from '../src/collections/Posts';
+import { legeErstenAdminAn, pruefePasswort } from '../src/lib/erster-admin';
 
 let payload: Payload;
 let adminId: number | string;
@@ -478,5 +479,40 @@ describe('Lesezeit', () => {
     expect(berechneLesezeit(absatz(30))).toBe(1);
     expect(berechneLesezeit(absatz(1000))).toBe(5);
     expect(berechneLesezeit(null)).toBe(1);
+  });
+});
+
+describe('Erster Admin', () => {
+  it('lehnt schwache Passwörter ab', () => {
+    expect(pruefePasswort(undefined)).toMatch(/fehlt/);
+    expect(pruefePasswort('kurz')).toMatch(/zu kurz/);
+    expect(pruefePasswort('aaaaaaaaaaaaaaaaaaaa')).toMatch(/gleichförmig/);
+    expect(pruefePasswort('Eine-lange-Passphrase-2026')).toBeUndefined();
+  });
+
+  it('legt den ersten Admin an, aber nur, wenn es noch keinen Benutzer gibt', async () => {
+    await payload.delete({
+      collection: 'users',
+      where: { id: { exists: true } },
+      overrideAccess: true,
+    });
+    await expect(
+      legeErstenAdminAn(payload, { email: 'erster@test.example', passwort: 'zu kurz' }),
+    ).rejects.toThrow(/kurz/);
+    await expect(
+      legeErstenAdminAn(payload, {
+        email: 'erster@test.example',
+        passwort: 'Eine-lange-Passphrase-2026',
+      }),
+    ).resolves.toBe('angelegt');
+    await expect(
+      legeErstenAdminAn(payload, {
+        email: 'zweiter@test.example',
+        passwort: 'Eine-lange-Passphrase-2026',
+      }),
+    ).resolves.toBe('uebersprungen');
+    const alle = await payload.find({ collection: 'users', overrideAccess: true });
+    expect(alle.docs).toHaveLength(1);
+    expect(alle.docs[0]?.role).toBe('admin');
   });
 });
