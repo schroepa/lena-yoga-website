@@ -9,7 +9,8 @@
  * Lighthouse wird mit fester Version über npx geholt (ohne Installationsskripte),
  * damit pnpms Lieferketten-Regeln nicht aufgeweicht werden müssen.
  *
- * Umgebungsvariablen: LH_RUNS (Standard 3), LH_MIN (Standard 100), CHROME_PATH.
+ * Umgebungsvariablen: LH_RUNS (Standard 3), LH_MIN (Standard 100), CHROME_PATH,
+ * LH_URL (optional: gegen eine veröffentlichte Adresse messen statt gegen die lokale Vorschau).
  */
 import { execFileSync, spawn } from 'node:child_process';
 import { readFileSync } from 'node:fs';
@@ -17,6 +18,8 @@ import { resolve } from 'node:path';
 
 const LIGHTHOUSE_VERSION = '13.6.0';
 const PORT = 4321;
+const LIVE_URL = process.env.LH_URL?.replace(/\/$/, '');
+const BASIS = LIVE_URL ?? `http://localhost:${String(PORT)}`;
 const RUNS = Number(process.env.LH_RUNS ?? 3);
 const MIN = Number(process.env.LH_MIN ?? 100);
 const ROOT = resolve(import.meta.dirname, '..');
@@ -77,24 +80,23 @@ function messe(url, preset) {
   );
 }
 
-const server = spawn(
-  'pnpm',
-  ['exec', 'astro', 'preview', '--port', String(PORT), '--ignore-lock'],
-  { cwd: WEB, stdio: 'ignore' },
-);
+const server = LIVE_URL
+  ? undefined
+  : spawn('pnpm', ['exec', 'astro', 'preview', '--port', String(PORT), '--ignore-lock'], {
+      cwd: WEB,
+      stdio: 'ignore',
+    });
 
 let fehlgeschlagen = false;
 try {
-  await warteAuf(`http://localhost:${PORT}/`);
+  await warteAuf(`${BASIS}/`);
   const seiten = seitenAusSitemap();
   console.log(
     `Lighthouse ${LIGHTHOUSE_VERSION}: ${seiten.length} Seite(n), ${RUNS} Läufe, Mindestwert ${MIN}`,
   );
   for (const pfad of seiten) {
     for (const preset of ['mobile', 'desktop']) {
-      const laeufe = Array.from({ length: RUNS }, () =>
-        messe(`http://localhost:${PORT}${pfad}`, preset),
-      );
+      const laeufe = Array.from({ length: RUNS }, () => messe(`${BASIS}${pfad}`, preset));
       const kategorien = Object.keys(laeufe[0] ?? {});
       const ergebnis = Object.fromEntries(
         kategorien.map((k) => [k, median(laeufe.map((l) => l[k] ?? 0))]),
@@ -105,7 +107,7 @@ try {
     }
   }
 } finally {
-  server.kill();
+  server?.kill();
 }
 
 if (fehlgeschlagen) {
