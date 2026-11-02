@@ -1,0 +1,44 @@
+{
+  "docs": [
+    {
+      "id": 1,
+      "titel": "Sanft ankommen",
+      "ort": "online",
+      "wochentag": "mo",
+      "uhrzeit": "18:30",
+      "dauerMinuten": 60,
+      "beschreibung": "Ein ruhiger Einstieg mit viel Zeit für Pausen.",
+      "buchungslink": "https://example.com/buchen/sanft-ankommen"
+    },
+    {
+      "id": 2,
+      "titel": "Kraft mit Varianten",
+      "ort": "online",
+      "wochentag": "mi",
+      "uhrzeit": "19:00",
+      "dauerMinuten": 60,
+      "beschreibung": "Kräftigende Übungen mit Varianten für jede Beweglichkeit.",
+      "buchungslink": "https://example.com/buchen/kraft-mit-varianten"
+    },
+    {
+      "id": 3,
+      "titel": "Yoga für alle Körper",
+      "ort": "studio",
+      "wochentag": "di",
+      "uhrzeit": "17:30",
+      "dauerMinuten": 75,
+      "beschreibung": "Eine Stunde mit Blöcken, Decken und Bolstern für alle Körperformen.",
+      "buchungslink": "https://example.com/buchen/yoga-fuer-alle-koerper"
+    },
+    {
+      "id": 4,
+      "titel": "Rücken stärken",
+      "ort": "studio",
+      "wochentag": "do",
+      "uhrzeit": "18:00",
+      "dauerMinuten": 60,
+      "beschreibung": "Sanfte Kräftigung und Mobilisation für Rücken und Schultern.",
+      "buchungslink": "https://example.com/buchen/ruecken-staerken"
+    }
+  ]
+}

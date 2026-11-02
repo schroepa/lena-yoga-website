@@ -131,3 +131,25 @@ Jeder Schritt ist ein eigener Pull Request mit grüner CI.
 - Lighthouse 13.6 mobil und Desktop: **100 in allen fünf Kategorien**, auch in der neuen, noch experimentellen Kategorie „Agentic Browsing". Lade- und Renderzeiten unter 0,7 s im Labor.
 - CI-Dateien für GitHub sind geschrieben (Qualität, Ende-zu-Ende, Lighthouse mit fünf Läufen, Lieferkette, CodeQL, Dependabot), aber noch nie auf GitHub gelaufen. Das Repository ist angelegt: https://github.com/schroepa/lena-yoga-website (öffentlich, `main` geschützt, alle fünf Prüfungen auf GitHub grün).
 - Offen für Schritt 1: Vercel-Projekt verbinden (Import im Dashboard, Root `apps/web`), danach `node scripts/pruefe-live.mjs <Adresse>` und Lighthouse gegen die echte Adresse ausführen.
+
+## 9. Stand: Schritt 3 (Payload-Prototyp, lokal geprüft)
+
+**Gebaut** (`apps/cms`, Payload 3.92 auf Next.js 16, PostgreSQL):
+
+- Sammlungen: Benutzer, Bilder (Alt-Text und Einwilligung sind Pflicht, nur JPEG/PNG/WebP/AVIF), Audio (nur MP3), Kurse, Meditationen, Gedanken (Rich Text, Lesezeit automatisch), Anleitungen, Häufige Fragen. Globals: Seiteneinstellungen, Navigation.
+- Zugriff: Standard ist verboten. Besucher lesen nur **Veröffentlichtes**, Entwürfe sehen nur Angemeldete. Redaktion legt an und ändert, nur Admins löschen und verwalten Benutzer. Die Rolle kann nur ein Admin ändern. Die Redaktion sieht nur das eigene Konto.
+- Anmeldung: Sitzung zwei Stunden, nach fünf Fehlversuchen zehn Minuten Sperre, Cookies `HttpOnly`/`SameSite`, keine API-Schlüssel, keine GraphQL-Schnittstelle, CORS und CSRF nur für Seite und CMS.
+- Eingaben: Uhrzeiten, https-Links und Navigationslinks werden geprüft (kein `javascript:`), Slugs nur `a-z0-9-`.
+- Veröffentlichen löst einen Neubau der Seite aus (Deploy Hook). Entwürfe nicht. Scheitert der Aufruf, bleibt die Änderung gespeichert.
+- Datenbank: im Betrieb nur über Migrationen (`payload migrate` im Vercel-Build), lokal und in Tests per Schema-Abgleich.
+- Frontend (`apps/web`): `CMS_URL` gesetzt: Inhalte kommen beim Build aus der öffentlichen API, jede Antwort wird mit Zod geprüft. **Ist das CMS nicht erreichbar oder die Antwort ungültig, bricht der Build ab, die alte Seite bleibt online.** Ohne `CMS_URL` (lokal, CI) nutzt der Build Beispieldaten.
+- Seite `/kurse` als Prototyp der Anbindung (endgültiges Design in Schritt 4).
+
+**Getestet:** 20 Integrationstests gegen echte Datenbank (Zugriff, Rollen, Sperre, Bilder, Eingaben, Neubau-Hook), 15 Tests im Frontend, Ende-zu-Ende lokal: Benutzer anlegen, anmelden, Kurs veröffentlichen, Entwurf anlegen, öffentliche API zeigt nur das Veröffentlichte, Seite wird mit dem Inhalt gebaut, Build bricht ohne CMS ab.
+
+**Noch nicht erledigt, bewusst offen:**
+
+- **Zwei-Faktor-Anmeldung:** Payload bringt sie nicht mit. Optionen: Erweiterung prüfen, oder das CMS hinter Vercel-Schutz / Cloudflare Access stellen. Muss vor dem Livegang entschieden werden.
+- **Hosting:** Zweites Vercel-Projekt (`apps/cms`), Neon-Datenbank, Vercel Blob, Deploy Hook. Brauchen Konten und Zugänge.
+- **Abhängigkeiten:** Eine Ausnahme bei der Herkunftsprüfung (`pino@9.14.0`, von Payload vorgeschrieben) und drei Überschreibungen für Sicherheitslücken in indirekten Paketen (`dompurify`, `happy-dom`, `esbuild`). Offen bleibt eine geringe Meldung zu `deepmerge` ohne verfügbare Korrektur.
+- **Vorschau für Lena:** Entwürfe sind im CMS sichtbar, eine Vorschau der gebauten Seite folgt.

@@ -14,6 +14,11 @@ export default tseslint.config(
       '**/playwright-report/**',
       '**/test-results/**',
       'packages/tokens/**',
+      '**/.next/**',
+      'apps/cms/src/payload-types.ts',
+      'apps/cms/src/migrations/**',
+      'apps/cms/src/app/(payload)/admin/importMap.js',
+      'apps/cms/next-env.d.ts',
       '.superpowers/**',
     ],
   },
@@ -43,6 +48,11 @@ export default tseslint.config(
   {
     // JSX-Ausdrücke in .astro-Dateien haben für den Typprüfer keinen Rückgabetyp (bekannte Einschränkung).
     files: ['**/*.astro'],
+    rules: { '@typescript-eslint/no-unsafe-return': 'off' },
+  },
+  {
+    // Payload-Hooks sind laut Bibliothek mit any getypt.
+    files: ['apps/cms/src/hooks/**/*.ts'],
     rules: { '@typescript-eslint/no-unsafe-return': 'off' },
   },
   {
