@@ -19,8 +19,8 @@ body {
   background: var(--surface-page);
   color: var(--text-primary);
   font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
 }
 
 img,
@@ -68,9 +68,13 @@ a {
   transform: none;
 }
 
+html.menue-offen {
+  overflow: hidden;
+}
+
 .container {
   width: 100%;
-  max-width: 82rem;
+  max-width: 90rem; /* 1312 px Inhalt bei 1440 px Fensterbreite */
   margin-inline: auto;
   padding-inline: var(--spacing-layout-page-margin-sm);
 }

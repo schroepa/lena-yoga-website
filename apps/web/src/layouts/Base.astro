@@ -1,10 +1,13 @@
 ---
 import '@lena/tokens/colors.css';
 import '@lena/tokens/sizing-spacing.css';
+import '@lena/tokens/radius.css';
+import '@lena/tokens/typography.css';
 import '../styles/global.css';
 
 import { Font } from 'astro:assets';
-import LogoMark from '../components/LogoMark.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
 
 interface Props {
   title: string;
@@ -33,6 +36,9 @@ const canonical = new URL(path, Astro.site).href;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
     <Font cssVariable="--font-heading" preload />
     <Font cssVariable="--font-body" preload />
   </head>
@@ -40,53 +46,16 @@ const canonical = new URL(path, Astro.site).href;
     <a class="skip-link" href="#inhalt">
       Zum Inhalt springen
     </a>
-    <header class="site-header">
-      <div class="container site-header__inner">
-        <a class="logo" href="/" aria-label="Lena Yoga, zur Startseite">
-          <LogoMark size={36} />
-          <span class="logo__name">Lena Yoga</span>
-        </a>
-      </div>
-    </header>
+    <Header />
     <main id="inhalt">
       <slot />
     </main>
-    <footer class="site-footer">
-      <div class="container">
-        <p>Lena Yoga · Yoga for EveryBody</p>
-      </div>
-    </footer>
+    <Footer />
   </body>
 </html>
 
 <style>
-  .site-header__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-block: var(--spacing-md);
-  }
-
-  .logo {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    min-height: 2.75rem;
-    text-decoration: none;
-  }
-
-  .logo__name {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    line-height: 1;
-  }
-
   main {
     flex: 1;
-  }
-
-  .site-footer {
-    padding-block: var(--spacing-xl);
-    color: var(--text-muted);
   }
 </style>

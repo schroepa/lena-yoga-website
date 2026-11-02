@@ -1,0 +1,97 @@
+---
+/**
+ * Button (Figma: Komponente · Button).
+ * Mit href wird ein Link ausgegeben, sonst ein <button>.
+ */
+interface Props {
+  label: string;
+  stil?: 'primaer' | 'sekundaer' | 'ghost';
+  groesse?: 'standard' | 'klein';
+  href?: string;
+  /** Mobil: volle Breite des Containers. */
+  vollbreite?: boolean;
+  class?: string;
+}
+
+const {
+  label,
+  stil = 'primaer',
+  groesse = 'standard',
+  href,
+  vollbreite = false,
+  class: klasse,
+} = Astro.props;
+
+const klassen = ['btn', `btn--${stil}`, `btn--${groesse}`, vollbreite && 'btn--voll', klasse]
+  .filter(Boolean)
+  .join(' ');
+---
+
+{href ? (
+  <a class={klassen} href={href}>
+    {label}
+  </a>
+) : (
+  <button class={klassen} type="button">
+    {label}
+  </button>
+)}
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem; /* Trefferfläche mindestens 44 px */
+    padding: var(--spacing-component-inset-md) var(--spacing-lg);
+    border: 0;
+    border-radius: var(--radius-full);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-button);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .btn--klein {
+    padding: var(--spacing-component-inset-sm) var(--spacing-md);
+  }
+
+  .btn--voll {
+    display: flex;
+    width: 100%;
+  }
+
+  .btn--primaer {
+    background: var(--accent-default);
+  }
+  .btn--primaer:hover {
+    background: var(--accent-hover);
+  }
+  .btn--primaer:active {
+    background: var(--accent-pressed);
+  }
+
+  .btn--sekundaer {
+    background: var(--brand-default);
+  }
+  .btn--sekundaer:hover {
+    background: var(--brand-hover);
+  }
+  .btn--sekundaer:active {
+    background: var(--brand-pressed);
+  }
+
+  .btn--ghost {
+    background: transparent;
+    box-shadow: inset 0 0 0 1.5px var(--text-primary);
+  }
+  .btn--ghost:hover {
+    background: var(--brand-subtle);
+  }
+</style>

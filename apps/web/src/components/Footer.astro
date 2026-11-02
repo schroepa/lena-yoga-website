@@ -1,0 +1,86 @@
+---
+/**
+ * Seitenfuß (Figma: Komponente · Footer).
+ */
+import { servicenavigation } from '../data/navigation';
+import LogoMark from './LogoMark.astro';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__inner">
+      <p class="site-footer__name text-heading-h4">
+        <LogoMark size={28} />
+        <span>Lena Yoga · Yoga for EveryBody</span>
+      </p>
+      <nav aria-label="Service">
+        <ul class="site-footer__links">
+          {servicenavigation.map((link) => (
+            <li>
+              <a href={link.href} class="text-body-small">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-block-start: var(--spacing-layout-section-lg);
+    color: var(--text-muted);
+  }
+
+  .site-footer__inner {
+    display: grid;
+    gap: var(--spacing-md);
+    padding-block: var(--spacing-lg);
+    border-block-start: 1px solid var(--border-default);
+  }
+
+  .site-footer__name {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin: 0;
+    color: var(--text-primary);
+  }
+
+  .site-footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-3xs) var(--spacing-xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-footer__links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: var(--spacing-sm);
+    margin-inline-start: calc(var(--spacing-sm) * -1);
+    text-decoration: none;
+  }
+
+  .site-footer__links a:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+  }
+
+  @media (min-width: 48rem) {
+    .site-footer__inner {
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .site-footer__links {
+      justify-content: flex-end;
+    }
+  }
+</style>

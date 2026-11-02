@@ -137,12 +137,12 @@
   --text-on-inverse: var(--color-cream-100);
   --text-muted: var(--color-sage-700);
   --brand-default: var(--color-sage-450);
-  --brand-hover: var(--color-sage-500);
-  --brand-pressed: var(--color-sage-550);
+  --brand-hover: var(--color-sage-400);
+  --brand-pressed: var(--color-sage-350);
   --brand-subtle: var(--color-sage-150);
   --accent-default: var(--color-watermelon-450);
-  --accent-hover: var(--color-watermelon-500);
-  --accent-pressed: var(--color-watermelon-550);
+  --accent-hover: var(--color-watermelon-400);
+  --accent-pressed: var(--color-watermelon-350);
   --accent-subtle: var(--color-watermelon-150);
   --highlight-default: var(--color-butter-250);
   --highlight-subtle: var(--color-butter-100);

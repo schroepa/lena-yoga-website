@@ -1,0 +1,10 @@
+/* Rundungen. Entsprechen der Figma-Collection "Radius" und bauen auf Sizing auf. */
+:root {
+  --radius-none: 0;
+  --radius-sm: var(--sizing-8); /* Kleine Elemente, Eingabefelder. */
+  --radius-md: var(--sizing-16); /* Standard. */
+  --radius-lg: var(--sizing-24); /* Fotos, Hinweisboxen, Karten. */
+  --radius-xl: var(--sizing-32); /* Große Karten. */
+  --radius-2xl: var(--sizing-48); /* Bänder (große Flächen). */
+  --radius-full: var(--sizing-128); /* Pillen: Buttons, Tags, Filter. */
+}
