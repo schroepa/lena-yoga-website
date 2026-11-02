@@ -129,5 +129,5 @@ Jeder Schritt ist ein eigener Pull Request mit grüner CI.
 - Astro (statisch) mit Basis-Layout, Logo, Schriften (Fraunces und DM Sans, selbst gehostet, zusammen rund 46 KB), Content-Security-Policy mit Hashes und Sicherheits-Header über `vercel.json`.
 - Prüfungen laufen lokal grün: Format, ESLint (streng, mit Barrierefreiheitsregeln), TypeScript (strictest), Vitest, Playwright mit axe (mobil und Desktop), `pnpm audit`.
 - Lighthouse 13.6 mobil und Desktop: **100 in allen fünf Kategorien**, auch in der neuen, noch experimentellen Kategorie „Agentic Browsing". Lade- und Renderzeiten unter 0,7 s im Labor.
-- CI-Dateien für GitHub sind geschrieben (Qualität, Ende-zu-Ende, Lighthouse mit fünf Läufen, Lieferkette, CodeQL, Dependabot), aber noch nie auf GitHub gelaufen. Das Repository existiert dort noch nicht.
-- Offen für Schritt 1: GitHub-Repository anlegen, Vercel-Projekt verbinden, Schutzregeln mit `scripts/github-einrichten.sh` anwenden. Das sind Schritte nach außen und brauchen deine Freigabe.
+- CI-Dateien für GitHub sind geschrieben (Qualität, Ende-zu-Ende, Lighthouse mit fünf Läufen, Lieferkette, CodeQL, Dependabot), aber noch nie auf GitHub gelaufen. Das Repository ist angelegt: https://github.com/schroepa/lena-yoga-website (öffentlich, `main` geschützt, alle fünf Prüfungen auf GitHub grün).
+- Offen für Schritt 1: Vercel-Projekt verbinden (Import im Dashboard, Root `apps/web`), danach `node scripts/pruefe-live.mjs <Adresse>` und Lighthouse gegen die echte Adresse ausführen.
