@@ -1,0 +1,15 @@
+{
+  "extends": ["astro/tsconfigs/strictest", "../../tsconfig.base.json"],
+  "include": [
+    "src/**/*",
+    "tests/**/*",
+    "astro.config.mjs",
+    "playwright.config.ts",
+    "vitest.config.ts",
+    ".astro/types.d.ts"
+  ],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "types": ["astro/client"]
+  }
+}

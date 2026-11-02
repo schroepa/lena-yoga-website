@@ -1,0 +1,592 @@
+{
+  "color": {
+    "sage": {
+      "50": {
+        "$type": "color",
+        "$value": "#F2F8F5"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#EDF3F0"
+      },
+      "150": {
+        "$type": "color",
+        "$value": "#E6EDEA"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#DBE4DF"
+      },
+      "250": {
+        "$type": "color",
+        "$value": "#CCDAD3"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#BBCDC5"
+      },
+      "350": {
+        "$type": "color",
+        "$value": "#A5BEB3"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#8EAFA0"
+      },
+      "450": {
+        "$type": "color",
+        "$value": "#79A18F"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#699481"
+      },
+      "550": {
+        "$type": "color",
+        "$value": "#598673"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#4E7A67"
+      },
+      "650": {
+        "$type": "color",
+        "$value": "#446C5B"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#3D5F50"
+      },
+      "750": {
+        "$type": "color",
+        "$value": "#375247"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#31463C"
+      },
+      "850": {
+        "$type": "color",
+        "$value": "#2A3832"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#242E2A"
+      },
+      "950": {
+        "$type": "color",
+        "$value": "#1C2320"
+      },
+      "$description": "Primär, Hauptfarbe. Basisfarbe: sage.450"
+    },
+    "watermelon": {
+      "50": {
+        "$type": "color",
+        "$value": "#FFF4F4"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#FFEFEF"
+      },
+      "150": {
+        "$type": "color",
+        "$value": "#FFE8EA"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#FFDDDE"
+      },
+      "250": {
+        "$type": "color",
+        "$value": "#FECFD1"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#FEBDC2"
+      },
+      "350": {
+        "$type": "color",
+        "$value": "#FFA6AD"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#FF8A97"
+      },
+      "450": {
+        "$type": "color",
+        "$value": "#FF6F83"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#FD5070"
+      },
+      "550": {
+        "$type": "color",
+        "$value": "#F42F5F"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#E60050"
+      },
+      "650": {
+        "$type": "color",
+        "$value": "#CD0047"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#B5003D"
+      },
+      "750": {
+        "$type": "color",
+        "$value": "#A00035"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#85102E"
+      },
+      "850": {
+        "$type": "color",
+        "$value": "#671A28"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#4F1A22"
+      },
+      "950": {
+        "$type": "color",
+        "$value": "#39171C"
+      },
+      "$description": "Frech, Akzent für CTAs. Basisfarbe: watermelon.450"
+    },
+    "lilac": {
+      "50": {
+        "$type": "color",
+        "$value": "#F7F4FF"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#F5F2FF"
+      },
+      "150": {
+        "$type": "color",
+        "$value": "#F1EDFE"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#E9E4FA"
+      },
+      "250": {
+        "$type": "color",
+        "$value": "#E0DAF6"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#D6CDF3"
+      },
+      "350": {
+        "$type": "color",
+        "$value": "#C9BBF2"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#BAA5F3"
+      },
+      "450": {
+        "$type": "color",
+        "$value": "#AE90F3"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#A27DF0"
+      },
+      "550": {
+        "$type": "color",
+        "$value": "#956BE8"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#885DDA"
+      },
+      "650": {
+        "$type": "color",
+        "$value": "#7950C6"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#6B46AD"
+      },
+      "750": {
+        "$type": "color",
+        "$value": "#5C3F94"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#4C3779"
+      },
+      "850": {
+        "$type": "color",
+        "$value": "#3D2E5E"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#312748"
+      },
+      "950": {
+        "$type": "color",
+        "$value": "#241F33"
+      },
+      "$description": "Extra, dritter Akzent. Basisfarbe: lilac.350"
+    },
+    "cream": {
+      "50": {
+        "$type": "color",
+        "$value": "#F8F6EE"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#F6F3EA"
+      },
+      "150": {
+        "$type": "color",
+        "$value": "#F1EDE3"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#E9E4D6"
+      },
+      "250": {
+        "$type": "color",
+        "$value": "#DFD9C5"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#D5CCB0"
+      },
+      "350": {
+        "$type": "color",
+        "$value": "#C9BC94"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#BCAA74"
+      },
+      "450": {
+        "$type": "color",
+        "$value": "#B19A57"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#A58C3C"
+      },
+      "550": {
+        "$type": "color",
+        "$value": "#987D25"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#8A7012"
+      },
+      "650": {
+        "$type": "color",
+        "$value": "#7B6309"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#6C580D"
+      },
+      "750": {
+        "$type": "color",
+        "$value": "#5D4C15"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#4F4119"
+      },
+      "850": {
+        "$type": "color",
+        "$value": "#3F361A"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#322C19"
+      },
+      "950": {
+        "$type": "color",
+        "$value": "#262216"
+      },
+      "$description": "Flächen, Hintergrund. Basisfarbe: cream.100"
+    },
+    "butter": {
+      "50": {
+        "$type": "color",
+        "$value": "#FFF6DA"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#FFF3C9"
+      },
+      "150": {
+        "$type": "color",
+        "$value": "#FEEEB9"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#FAE49D"
+      },
+      "250": {
+        "$type": "color",
+        "$value": "#F7D974"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#F7C900"
+      },
+      "350": {
+        "$type": "color",
+        "$value": "#E5B900"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#D1A700"
+      },
+      "450": {
+        "$type": "color",
+        "$value": "#C19800"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#B18900"
+      },
+      "550": {
+        "$type": "color",
+        "$value": "#A17B00"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#926E00"
+      },
+      "650": {
+        "$type": "color",
+        "$value": "#836100"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#735500"
+      },
+      "750": {
+        "$type": "color",
+        "$value": "#664900"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#583E00"
+      },
+      "850": {
+        "$type": "color",
+        "$value": "#493300"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#3C2900"
+      },
+      "950": {
+        "$type": "color",
+        "$value": "#2F1E00"
+      },
+      "$description": "Lieb, Badges und Marker. Basisfarbe: butter.250"
+    },
+    "ink": {
+      "50": {
+        "$type": "color",
+        "$value": "#EDF8F4"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#E7F5F0"
+      },
+      "150": {
+        "$type": "color",
+        "$value": "#E1F0EB"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#D2E7E0"
+      },
+      "250": {
+        "$type": "color",
+        "$value": "#C0DED4"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#AAD4C6"
+      },
+      "350": {
+        "$type": "color",
+        "$value": "#8AC6B4"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#65B8A0"
+      },
+      "450": {
+        "$type": "color",
+        "$value": "#3CAB8F"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#009E81"
+      },
+      "550": {
+        "$type": "color",
+        "$value": "#008F74"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#008068"
+      },
+      "650": {
+        "$type": "color",
+        "$value": "#00725B"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#006450"
+      },
+      "750": {
+        "$type": "color",
+        "$value": "#005745"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#0A493B"
+      },
+      "850": {
+        "$type": "color",
+        "$value": "#153B30"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#162E27"
+      },
+      "950": {
+        "$type": "color",
+        "$value": "#142520"
+      },
+      "$description": "Text und dunkle Bereiche. Basisfarbe: ink.900"
+    }
+  },
+  "semantic": {
+    "surface": {
+      "page": {
+        "$type": "color",
+        "$value": "{color.cream.100}"
+      },
+      "raised": {
+        "$type": "color",
+        "$value": "{color.cream.50}"
+      },
+      "brand": {
+        "$type": "color",
+        "$value": "{color.sage.450}"
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "{color.ink.900}"
+      }
+    },
+    "text": {
+      "primary": {
+        "$type": "color",
+        "$value": "{color.ink.900}"
+      },
+      "on-brand": {
+        "$type": "color",
+        "$value": "{color.ink.900}"
+      },
+      "on-accent": {
+        "$type": "color",
+        "$value": "{color.ink.900}"
+      },
+      "on-inverse": {
+        "$type": "color",
+        "$value": "{color.cream.100}"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{color.sage.700}"
+      }
+    },
+    "brand": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.sage.450}"
+      },
+      "hover": {
+        "$type": "color",
+        "$value": "{color.sage.500}"
+      },
+      "pressed": {
+        "$type": "color",
+        "$value": "{color.sage.550}"
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{color.sage.150}"
+      }
+    },
+    "accent": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.watermelon.450}"
+      },
+      "hover": {
+        "$type": "color",
+        "$value": "{color.watermelon.500}"
+      },
+      "pressed": {
+        "$type": "color",
+        "$value": "{color.watermelon.550}"
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{color.watermelon.150}"
+      }
+    },
+    "highlight": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.butter.250}"
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{color.butter.100}"
+      }
+    },
+    "extra": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.lilac.350}"
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{color.lilac.100}"
+      }
+    },
+    "border": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.cream.250}"
+      },
+      "strong": {
+        "$type": "color",
+        "$value": "{color.sage.550}"
+      }
+    },
+    "focus": {
+      "ring": {
+        "$type": "color",
+        "$value": "{color.lilac.700}"
+      }
+    }
+  }
+}

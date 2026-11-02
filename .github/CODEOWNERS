@@ -1,0 +1,5 @@
+# Jede Änderung braucht eine Prüfung durch die Verantwortlichen.
+*                      @schroepa
+/.github/              @schroepa
+/apps/web/vercel.json  @schroepa
+/pnpm-workspace.yaml   @schroepa

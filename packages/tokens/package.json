@@ -1,0 +1,17 @@
+{
+  "name": "@lena/tokens",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Design-Tokens (Farben, Abstände, Rundungen) aus Figma als CSS Custom Properties.",
+  "type": "module",
+  "exports": {
+    "./colors.css": "./colors.css",
+    "./sizing-spacing.css": "./sizing-spacing.css",
+    "./colors.json": "./colors.tokens.json",
+    "./sizing-spacing.json": "./sizing-spacing.tokens.json"
+  },
+  "files": [
+    "*.css",
+    "*.json"
+  ]
+}

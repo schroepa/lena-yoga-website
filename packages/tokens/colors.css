@@ -1,0 +1,154 @@
+/* Farb-Tokens · Basis #79A18F · erzeugt mit Tintfield (Schema: Fein 50er, 19 Stufen) */
+:root {
+  /* sage · Primär, Hauptfarbe */
+  --color-sage-50: #f2f8f5;
+  --color-sage-100: #edf3f0;
+  --color-sage-150: #e6edea;
+  --color-sage-200: #dbe4df;
+  --color-sage-250: #ccdad3;
+  --color-sage-300: #bbcdc5;
+  --color-sage-350: #a5beb3;
+  --color-sage-400: #8eafa0;
+  --color-sage-450: #79a18f;
+  --color-sage-500: #699481;
+  --color-sage-550: #598673;
+  --color-sage-600: #4e7a67;
+  --color-sage-650: #446c5b;
+  --color-sage-700: #3d5f50;
+  --color-sage-750: #375247;
+  --color-sage-800: #31463c;
+  --color-sage-850: #2a3832;
+  --color-sage-900: #242e2a;
+  --color-sage-950: #1c2320;
+
+  /* watermelon · Frech, Akzent für CTAs */
+  --color-watermelon-50: #fff4f4;
+  --color-watermelon-100: #ffefef;
+  --color-watermelon-150: #ffe8ea;
+  --color-watermelon-200: #ffddde;
+  --color-watermelon-250: #fecfd1;
+  --color-watermelon-300: #febdc2;
+  --color-watermelon-350: #ffa6ad;
+  --color-watermelon-400: #ff8a97;
+  --color-watermelon-450: #ff6f83;
+  --color-watermelon-500: #fd5070;
+  --color-watermelon-550: #f42f5f;
+  --color-watermelon-600: #e60050;
+  --color-watermelon-650: #cd0047;
+  --color-watermelon-700: #b5003d;
+  --color-watermelon-750: #a00035;
+  --color-watermelon-800: #85102e;
+  --color-watermelon-850: #671a28;
+  --color-watermelon-900: #4f1a22;
+  --color-watermelon-950: #39171c;
+
+  /* lilac · Extra, dritter Akzent */
+  --color-lilac-50: #f7f4ff;
+  --color-lilac-100: #f5f2ff;
+  --color-lilac-150: #f1edfe;
+  --color-lilac-200: #e9e4fa;
+  --color-lilac-250: #e0daf6;
+  --color-lilac-300: #d6cdf3;
+  --color-lilac-350: #c9bbf2;
+  --color-lilac-400: #baa5f3;
+  --color-lilac-450: #ae90f3;
+  --color-lilac-500: #a27df0;
+  --color-lilac-550: #956be8;
+  --color-lilac-600: #885dda;
+  --color-lilac-650: #7950c6;
+  --color-lilac-700: #6b46ad;
+  --color-lilac-750: #5c3f94;
+  --color-lilac-800: #4c3779;
+  --color-lilac-850: #3d2e5e;
+  --color-lilac-900: #312748;
+  --color-lilac-950: #241f33;
+
+  /* cream · Flächen, Hintergrund */
+  --color-cream-50: #f8f6ee;
+  --color-cream-100: #f6f3ea;
+  --color-cream-150: #f1ede3;
+  --color-cream-200: #e9e4d6;
+  --color-cream-250: #dfd9c5;
+  --color-cream-300: #d5ccb0;
+  --color-cream-350: #c9bc94;
+  --color-cream-400: #bcaa74;
+  --color-cream-450: #b19a57;
+  --color-cream-500: #a58c3c;
+  --color-cream-550: #987d25;
+  --color-cream-600: #8a7012;
+  --color-cream-650: #7b6309;
+  --color-cream-700: #6c580d;
+  --color-cream-750: #5d4c15;
+  --color-cream-800: #4f4119;
+  --color-cream-850: #3f361a;
+  --color-cream-900: #322c19;
+  --color-cream-950: #262216;
+
+  /* butter · Lieb, Badges und Marker */
+  --color-butter-50: #fff6da;
+  --color-butter-100: #fff3c9;
+  --color-butter-150: #feeeb9;
+  --color-butter-200: #fae49d;
+  --color-butter-250: #f7d974;
+  --color-butter-300: #f7c900;
+  --color-butter-350: #e5b900;
+  --color-butter-400: #d1a700;
+  --color-butter-450: #c19800;
+  --color-butter-500: #b18900;
+  --color-butter-550: #a17b00;
+  --color-butter-600: #926e00;
+  --color-butter-650: #836100;
+  --color-butter-700: #735500;
+  --color-butter-750: #664900;
+  --color-butter-800: #583e00;
+  --color-butter-850: #493300;
+  --color-butter-900: #3c2900;
+  --color-butter-950: #2f1e00;
+
+  /* ink · Text und dunkle Bereiche */
+  --color-ink-50: #edf8f4;
+  --color-ink-100: #e7f5f0;
+  --color-ink-150: #e1f0eb;
+  --color-ink-200: #d2e7e0;
+  --color-ink-250: #c0ded4;
+  --color-ink-300: #aad4c6;
+  --color-ink-350: #8ac6b4;
+  --color-ink-400: #65b8a0;
+  --color-ink-450: #3cab8f;
+  --color-ink-500: #009e81;
+  --color-ink-550: #008f74;
+  --color-ink-600: #008068;
+  --color-ink-650: #00725b;
+  --color-ink-700: #006450;
+  --color-ink-750: #005745;
+  --color-ink-800: #0a493b;
+  --color-ink-850: #153b30;
+  --color-ink-900: #162e27;
+  --color-ink-950: #142520;
+
+  /* Semantik */
+  --surface-page: var(--color-cream-100);
+  --surface-raised: var(--color-cream-50);
+  --surface-brand: var(--color-sage-450);
+  --surface-inverse: var(--color-ink-900);
+  --text-primary: var(--color-ink-900);
+  --text-on-brand: var(--color-ink-900);
+  --text-on-accent: var(--color-ink-900);
+  --text-on-inverse: var(--color-cream-100);
+  --text-muted: var(--color-sage-700);
+  --brand-default: var(--color-sage-450);
+  --brand-hover: var(--color-sage-500);
+  --brand-pressed: var(--color-sage-550);
+  --brand-subtle: var(--color-sage-150);
+  --accent-default: var(--color-watermelon-450);
+  --accent-hover: var(--color-watermelon-500);
+  --accent-pressed: var(--color-watermelon-550);
+  --accent-subtle: var(--color-watermelon-150);
+  --highlight-default: var(--color-butter-250);
+  --highlight-subtle: var(--color-butter-100);
+  --extra-default: var(--color-lilac-350);
+  --extra-subtle: var(--color-lilac-100);
+  --border-default: var(--color-cream-250);
+  --border-strong: var(--color-sage-550);
+  --focus-ring: var(--color-lilac-700);
+}

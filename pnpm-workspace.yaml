@@ -1,0 +1,19 @@
+packages:
+  - apps/*
+  - packages/*
+
+# Lieferkette: neue Versionen erst nach drei Tagen installieren, damit gekaperte
+# oder fehlerhafte Veröffentlichungen auffallen, bevor sie bei uns landen.
+minimumReleaseAge: 4320
+
+# Keine Rückschritte bei Herkunftsnachweisen (Provenance) eines Pakets.
+trustPolicy: no-downgrade
+
+# Nur diese Pakete dürfen beim Installieren Skripte ausführen.
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+  - '@parcel/watcher'
+
+# Abhängigkeiten werden nur über das Lockfile aufgelöst.
+verifyDepsBeforeRun: error

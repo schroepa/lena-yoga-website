@@ -1,0 +1,86 @@
+/* Sizing und Spacing · Spacing verweist auf Sizing */
+:root {
+  /* sizing: 0, 1, 2, dann 4px-Schritte bis 128 */
+  --sizing-0: 0px;
+  --sizing-1: 1px;
+  --sizing-2: 2px;
+  --sizing-4: 4px;
+  --sizing-8: 8px;
+  --sizing-12: 12px;
+  --sizing-16: 16px;
+  --sizing-20: 20px;
+  --sizing-24: 24px;
+  --sizing-28: 28px;
+  --sizing-32: 32px;
+  --sizing-36: 36px;
+  --sizing-40: 40px;
+  --sizing-44: 44px;
+  --sizing-48: 48px;
+  --sizing-52: 52px;
+  --sizing-56: 56px;
+  --sizing-60: 60px;
+  --sizing-64: 64px;
+  --sizing-68: 68px;
+  --sizing-72: 72px;
+  --sizing-76: 76px;
+  --sizing-80: 80px;
+  --sizing-84: 84px;
+  --sizing-88: 88px;
+  --sizing-92: 92px;
+  --sizing-96: 96px;
+  --sizing-100: 100px;
+  --sizing-104: 104px;
+  --sizing-108: 108px;
+  --sizing-112: 112px;
+  --sizing-116: 116px;
+  --sizing-120: 120px;
+  --sizing-124: 124px;
+  --sizing-128: 128px;
+  --sizing-160: 160px;
+  --sizing-192: 192px;
+
+  /* spacing */
+  --spacing-none: var(--sizing-0); /* Kein Abstand. Zum bewussten Zurücksetzen eines Abstands. */
+  --spacing-hairline: var(--sizing-1); /* Haarlinie. Nur für 1px-Feinheiten, z. B. Versatz neben einem Rahmen. Nicht für normales Spacing. */
+  --spacing-3xs: var(--sizing-2); /* Minimaler optischer Ausgleich, z. B. Icon und Textlinie feinjustieren. */
+  --spacing-2xs: var(--sizing-4); /* Sehr eng. Zusammengehörige Mini-Elemente, z. B. Icon und Zahl in einem Badge. */
+  --spacing-xs: var(--sizing-8); /* Eng. Zusammengehörige Elemente, z. B. Label über einem Eingabefeld. */
+  --spacing-sm: var(--sizing-12); /* Kompakt. Dichte Listen, kleine Karten, Zeilen in Tabellen. */
+  --spacing-md: var(--sizing-16); /* Standard. Normaler Abstand zwischen Elementen und üblicher Innenabstand. */
+  --spacing-lg: var(--sizing-24); /* Großzügig. Abstand zwischen Gruppen innerhalb einer Karte oder eines Formulars. */
+  --spacing-xl: var(--sizing-32); /* Deutlich. Abstand zwischen Karten oder eigenständigen Blöcken. */
+  --spacing-2xl: var(--sizing-48); /* Groß. Trennung größerer Inhaltsgruppen. */
+  --spacing-3xl: var(--sizing-64); /* Sehr groß. Abstand zwischen Bereichen einer Seite. */
+  --spacing-4xl: var(--sizing-96); /* Bühne. Luft um Hero-Bereiche und große Teaser. */
+  --spacing-5xl: var(--sizing-128); /* Maximal. Größte Trennung, z. B. zwischen Landingpage-Abschnitten. */
+  --spacing-6xl: var(--sizing-160); /* Sektionsabstand Desktop (luftiges Layout). */
+  --spacing-7xl: var(--sizing-192); /* Größte Trennung, z. B. vor dem Abschluss. */
+
+  /* spacing layout */
+  --spacing-layout-page-margin-sm: var(--sizing-16); /* Seitenrand auf kleinen Screens (Mobile). Abstand zwischen Bildschirmrand und Inhalt. */
+  --spacing-layout-page-margin-md: var(--sizing-32); /* Seitenrand auf mittleren Screens (Tablet). Abstand zwischen Bildschirmrand und Inhalt. */
+  --spacing-layout-page-margin-lg: var(--sizing-64); /* Seitenrand auf großen Screens (Desktop). Abstand zwischen Bildschirmrand und Inhalt. */
+  --spacing-layout-gutter-sm: var(--sizing-16); /* Spaltenabstand im Grid auf Mobile. Abstand zwischen zwei Spalten. */
+  --spacing-layout-gutter-md: var(--sizing-24); /* Spaltenabstand im Grid auf Tablet. Abstand zwischen zwei Spalten. */
+  --spacing-layout-gutter-lg: var(--sizing-32); /* Spaltenabstand im Grid auf Desktop. Abstand zwischen zwei Spalten. */
+  --spacing-layout-stack-xs: var(--sizing-8); /* Vertikaler Abstand zwischen eng zusammengehörigen Blöcken, z. B. Überschrift und Unterzeile. */
+  --spacing-layout-stack-sm: var(--sizing-16); /* Vertikaler Abstand zwischen Blöcken, z. B. Absatz und Absatz. */
+  --spacing-layout-stack-md: var(--sizing-24); /* Standard-Abstand zwischen Blöcken innerhalb einer Sektion, z. B. Text und Bild. */
+  --spacing-layout-stack-lg: var(--sizing-32); /* Größerer Abstand zwischen Blöcken innerhalb einer Sektion, z. B. Intro und Kartenreihe. */
+  --spacing-layout-stack-xl: var(--sizing-48); /* Abstand zwischen klar getrennten Blockgruppen innerhalb einer Sektion. */
+  --spacing-layout-section-sm: var(--sizing-48); /* Abstand zwischen zwei Sektionen auf Mobile. Oben und unten einer Sektion. */
+  --spacing-layout-section-md: var(--sizing-64); /* Abstand zwischen zwei Sektionen (Standard). Oben und unten einer Sektion. */
+  --spacing-layout-section-lg: var(--sizing-96); /* Abstand zwischen Sektionen auf Desktop. Oben und unten einer Sektion. */
+  --spacing-layout-section-xl: var(--spacing-6xl); /* Sektionsabstand Desktop. Zwischen allen Abschnitten einer Seite. */
+
+  /* spacing component */
+  --spacing-component-inset-xs: var(--sizing-4); /* Innenabstand (Padding) in sehr kleinen Komponenten, z. B. Badge, Chip. */
+  --spacing-component-inset-sm: var(--sizing-8); /* Innenabstand in kleinen Komponenten, z. B. kleiner Button, Tag. */
+  --spacing-component-inset-md: var(--sizing-12); /* Innenabstand in Standard-Komponenten, z. B. Button, Eingabefeld. */
+  --spacing-component-inset-lg: var(--sizing-16); /* Innenabstand in Containern, z. B. Karte, Menü. */
+  --spacing-component-inset-xl: var(--sizing-24); /* Innenabstand in großen Containern, z. B. Dialog, große Karte. */
+  --spacing-component-gap-xs: var(--sizing-4); /* Abstand zwischen Elementen in einer Komponente: Icon und Zahl, Punkt und Text. */
+  --spacing-component-gap-sm: var(--sizing-8); /* Abstand zwischen Elementen in einer Komponente: Icon und Label im Button, Label und Feld. */
+  --spacing-component-gap-md: var(--sizing-12); /* Abstand zwischen Elementen in einer Komponente: Zeilen in Listen, Felder in einem Formular. */
+  --spacing-component-gap-lg: var(--sizing-16); /* Abstand zwischen Gruppen in einer Komponente: Titel, Inhalt und Aktionen einer Karte. */
+}

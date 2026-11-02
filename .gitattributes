@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.woff2 binary
+*.avif binary
+*.webp binary
+*.jpg binary
+*.png binary
+*.mp3 binary
+pnpm-lock.yaml -diff

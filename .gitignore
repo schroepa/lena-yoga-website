@@ -1,0 +1,23 @@
+# Abhängigkeiten und Build
+node_modules/
+dist/
+.astro/
+.vercel/
+.next/
+.turbo/
+coverage/
+playwright-report/
+test-results/
+.lighthouseci/
+
+# Geheimnisse und lokale Konfiguration. Niemals einchecken.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Werkzeuge
+.superpowers/
+.DS_Store
+*.log
