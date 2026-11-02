@@ -41,6 +41,11 @@ export default tseslint.config(
     },
   },
   {
+    // JSX-Ausdrücke in .astro-Dateien haben für den Typprüfer keinen Rückgabetyp (bekannte Einschränkung).
+    files: ['**/*.astro'],
+    rules: { '@typescript-eslint/no-unsafe-return': 'off' },
+  },
+  {
     // Kommandozeilen-Skripte dürfen ausgeben.
     files: ['scripts/**/*.mjs'],
     rules: { 'no-console': 'off' },

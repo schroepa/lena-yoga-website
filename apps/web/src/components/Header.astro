@@ -1,0 +1,289 @@
+---
+/**
+ * Seitenkopf (Figma: Komponente · Header) mit mobilem Vollbild-Menü (Komponente · Mobiles Menü).
+ * Desktop: Navigation offen im Kopf. Mobil: Menü-Button öffnet einen <dialog> über die ganze Seite.
+ * Ohne JavaScript bleibt die Navigation unter dem Kopf sichtbar.
+ */
+import { hauptaktion, hauptnavigation, istAktuell } from '../data/navigation';
+import Button from './Button.astro';
+import LogoMark from './LogoMark.astro';
+import MenuIcon from './MenuIcon.astro';
+
+const pfad = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="logo" href="/" aria-label="Lena Yoga, zur Startseite">
+      <LogoMark size={36} />
+      <span class="logo__name text-heading-h3">Lena Yoga</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Hauptnavigation">
+      <ul>
+        {hauptnavigation.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              aria-current={istAktuell(pfad, link.href) ? 'page' : undefined}
+              class="text-body-default"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="site-header__aktion">
+      <Button label={hauptaktion.label} href={hauptaktion.href} />
+    </div>
+
+    <button
+      class="menu-button text-label-button"
+      type="button"
+      aria-haspopup="dialog"
+      aria-controls="mobiles-menue"
+      aria-expanded="false"
+      data-menue-oeffnen
+    >
+      <MenuIcon />
+      <span>Menü</span>
+    </button>
+  </div>
+</header>
+
+<dialog id="mobiles-menue" class="mobile-menu" aria-label="Menü" data-menue>
+  <div class="mobile-menu__inhalt">
+    <div class="container mobile-menu__kopf">
+      <a class="logo" href="/" aria-label="Lena Yoga, zur Startseite">
+        <LogoMark size={36} />
+        <span class="logo__name text-heading-h3">Lena Yoga</span>
+      </a>
+      <button class="menu-button text-label-button" type="button" data-menue-schliessen>
+        <MenuIcon />
+        <span>Schließen</span>
+      </button>
+    </div>
+
+    <nav class="container mobile-menu__nav" aria-label="Mobile Hauptnavigation">
+      <ul>
+        {hauptnavigation.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              aria-current={istAktuell(pfad, link.href) ? 'page' : undefined}
+              class="text-heading-h2"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="container mobile-menu__aktion">
+      <Button label={hauptaktion.label} href={hauptaktion.href} vollbreite />
+      <p class="text-body-small">Online über Sophies Safe Space und im Studio vor Ort.</p>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import '../scripts/menue';
+</script>
+
+<style>
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    padding-block: var(--spacing-sm);
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    min-height: 2.75rem;
+    text-decoration: none;
+  }
+
+  .logo__name {
+    white-space: nowrap;
+  }
+
+  /* Navigation: mobil im Menü, am Desktop im Kopf. */
+  .site-nav,
+  .site-header__aktion {
+    display: none;
+  }
+
+  .site-nav ul {
+    display: flex;
+    gap: var(--spacing-xl);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    text-decoration: none;
+    text-underline-offset: 0.35em;
+    text-decoration-thickness: 2px;
+  }
+
+  .site-nav a:hover,
+  .site-nav a[aria-current='page'] {
+    text-decoration-line: underline;
+    text-decoration-color: var(--border-strong);
+  }
+
+  .menu-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    min-height: 2.75rem;
+    padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-xs) var(--spacing-xs);
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  @media (min-width: 48rem) {
+    .site-nav {
+      display: block;
+    }
+    .site-header__aktion {
+      display: inline-flex;
+    }
+    .menu-button {
+      display: none;
+    }
+  }
+
+  /* Ohne JavaScript gibt es kein Vollbild-Menü: Navigation bleibt unter dem Kopf sichtbar. */
+  :global(html:not(.js)) .menu-button {
+    display: none;
+  }
+  :global(html:not(.js)) .site-nav {
+    display: block;
+    grid-column: 1 / -1;
+  }
+  :global(html:not(.js)) .site-header__inner {
+    flex-wrap: wrap;
+  }
+  :global(html:not(.js)) .site-nav ul {
+    flex-wrap: wrap;
+    gap: var(--spacing-xs) var(--spacing-lg);
+  }
+
+  /* Vollbild-Menü */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--surface-page);
+    color: var(--text-primary);
+    overflow-y: auto;
+    opacity: 0;
+    transition:
+      opacity 0.3s ease-in-out,
+      display 0.3s allow-discrete,
+      overlay 0.3s allow-discrete;
+  }
+
+  .mobile-menu[open] {
+    opacity: 1;
+  }
+
+  @starting-style {
+    .mobile-menu[open] {
+      opacity: 0;
+    }
+  }
+
+  .mobile-menu::backdrop {
+    background: transparent;
+  }
+
+  .mobile-menu__inhalt {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding-block-end: var(--spacing-xl);
+  }
+
+  .mobile-menu__kopf {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    padding-block: var(--spacing-sm);
+  }
+
+  .mobile-menu__nav {
+    margin-block-start: var(--spacing-3xl);
+  }
+
+  .mobile-menu__nav ul {
+    display: grid;
+    gap: var(--spacing-xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mobile-menu__nav a {
+    display: flex;
+    align-items: center;
+    min-height: 3.5rem;
+    padding-block: var(--spacing-sm);
+    text-decoration: none;
+  }
+
+  .mobile-menu__nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.3em;
+  }
+
+  .mobile-menu__aktion {
+    display: grid;
+    gap: var(--spacing-md);
+    margin-block-start: auto;
+    padding-block-start: var(--spacing-3xl);
+  }
+
+  .mobile-menu__aktion p {
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  /* Das Symbol im Menü verwandelt sich beim Öffnen in ein X. */
+  .mobile-menu[open] :global(.menu-icon i:first-child) {
+    transform: translateY(0.3125rem) rotate(45deg);
+  }
+  .mobile-menu[open] :global(.menu-icon i:last-child) {
+    transform: translateY(-0.3125rem) rotate(-45deg);
+  }
+
+  @starting-style {
+    .mobile-menu[open] :global(.menu-icon i:first-child),
+    .mobile-menu[open] :global(.menu-icon i:last-child) {
+      transform: none;
+    }
+  }
+</style>

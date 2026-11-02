@@ -7,30 +7,29 @@ import Base from '../layouts/Base.astro';
   description="Lena unterrichtet Yoga online über Sophies Safe Space und im Studio. Die Stunden sind langsam genug, damit jede Person mitkommt."
 >
   <section class="hero container">
-    <h1>Yoga für alle Körper, online und im Studio.</h1>
-    <p>
-      Lena unterrichtet Yoga online über Sophies Safe Space und im Studio. Die Stunden sind langsam
-      genug, damit jede Person mitkommt.
-    </p>
+    <div class="hero__inhalt">
+      <h1 class="text-display">Yoga für alle Körper, online und im Studio.</h1>
+      <p class="text-body-large">
+        Lena unterrichtet Yoga online über Sophies Safe Space und im Studio. Die Stunden sind
+        langsam genug, damit jede Person mitkommt.
+      </p>
+    </div>
   </section>
 </Base>
 
 <style>
   .hero {
-    display: grid;
-    gap: var(--spacing-xl);
     padding-block: var(--spacing-layout-section-lg);
-    max-width: 52rem;
-    margin-inline: 0;
   }
 
-  .hero h1 {
-    font-size: clamp(2.25rem, 1.5rem + 3.5vw, 4.5rem);
+  .hero__inhalt {
+    display: grid;
+    gap: var(--spacing-xl);
+    max-width: 52rem;
   }
 
   .hero p {
     max-width: 40rem;
     color: var(--text-muted);
-    font-size: 1.1875rem;
   }
 </style>

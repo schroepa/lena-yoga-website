@@ -1,0 +1,49 @@
+---
+/**
+ * Menü-Symbol (Figma: Menü-Symbol). Zwei Linien, die sich in ein X verwandeln.
+ * Der Zustand "offen" kommt über die Eigenschaft oder über das Elternelement
+ * (Klasse .ist-offen oder geöffneter Dialog), damit die Verwandlung animiert.
+ */
+interface Props {
+  offen?: boolean;
+}
+const { offen = false } = Astro.props;
+---
+
+<span class:list={['menu-icon', { 'menu-icon--offen': offen }]} aria-hidden="true">
+  <i></i>
+  <i></i>
+</span>
+
+<style>
+  .menu-icon {
+    position: relative;
+    display: block;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex: none;
+  }
+
+  .menu-icon i {
+    position: absolute;
+    inset-inline: 0.125rem;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--text-primary);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .menu-icon i:first-child {
+    top: 0.5rem;
+  }
+  .menu-icon i:last-child {
+    top: 1.125rem;
+  }
+
+  .menu-icon--offen i:first-child {
+    transform: translateY(0.3125rem) rotate(45deg);
+  }
+  .menu-icon--offen i:last-child {
+    transform: translateY(-0.3125rem) rotate(-45deg);
+  }
+</style>
