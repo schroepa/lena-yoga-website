@@ -8,7 +8,7 @@ interface Props {
   stil?: 'primaer' | 'sekundaer' | 'ghost';
   groesse?: 'standard' | 'klein';
   href?: string;
-  /** Zugänglicher Name, wenn er genauer sein muss als der sichtbare Text (zum Beispiel mit Kursname). */
+  /** Zugänglicher Name, wenn er genauer sein muss. Muss mit dem sichtbaren Text beginnen (WCAG 2.5.3), zum Beispiel "Platz sichern: Sanft ankommen". */
   ariaLabel?: string;
   /** Mobil: volle Breite des Containers. */
   vollbreite?: boolean;
