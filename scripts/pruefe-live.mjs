@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Prüft eine veröffentlichte Seite auf die erwarteten Sicherheits-Header und Caching-Regeln.
- * Nutzung: node scripts/pruefe-live.mjs https://deine-seite.vercel.app
+ * Nutzung: node scripts/pruefe-live.mjs https://deine-seite.pages.dev
  */
 const basis = process.argv[2];
 if (!basis) {

@@ -2,7 +2,7 @@
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 
-// Öffentliche Adresse. Wird in Vercel über die Umgebungsvariable gesetzt.
+// Öffentliche Adresse. Wird im Hosting über die Umgebungsvariable gesetzt.
 const site = process.env['PUBLIC_SITE_URL'] ?? 'https://lena-yoga.example';
 
 export default defineConfig({

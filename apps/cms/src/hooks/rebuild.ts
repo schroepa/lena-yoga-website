@@ -6,14 +6,14 @@ import type {
 
 /**
  * Löst nach dem Veröffentlichen einen neuen Build der öffentlichen Seite aus
- * (Vercel Deploy Hook). Entwürfe lösen nichts aus.
+ * (Deploy Hook von Cloudflare Pages). Entwürfe lösen nichts aus.
  * Schlägt der Aufruf fehl, bleibt die Änderung im CMS gespeichert und es gibt eine Warnung im Log.
  */
 async function ausloesen(
   logger: { warn: (nachricht: string) => void },
   grund: string,
 ): Promise<void> {
-  const url = process.env['VERCEL_DEPLOY_HOOK_URL'];
+  const url = process.env['DEPLOY_HOOK_URL'];
   if (!url) return;
   try {
     const antwort = await fetch(url, { method: 'POST', signal: AbortSignal.timeout(5000) });

@@ -39,7 +39,7 @@ afterAll(async () => {
 
 beforeEach(async () => {
   vi.unstubAllGlobals();
-  delete process.env['VERCEL_DEPLOY_HOOK_URL'];
+  delete process.env['DEPLOY_HOOK_URL'];
   for (const collection of [
     'kurse',
     'meditationen',
@@ -341,7 +341,7 @@ describe('Eingaben prüfen', () => {
 
 describe('Neubau der öffentlichen Seite', () => {
   it('wird beim Veröffentlichen ausgelöst, bei Entwürfen nicht', async () => {
-    process.env['VERCEL_DEPLOY_HOOK_URL'] = 'https://deploy.test.example/hook';
+    process.env['DEPLOY_HOOK_URL'] = 'https://deploy.test.example/hook';
     const abruf = vi.fn().mockResolvedValue({ ok: true, status: 200 });
     vi.stubGlobal('fetch', abruf);
     const redaktion = await alsNutzer(redaktionId);
@@ -369,7 +369,7 @@ describe('Neubau der öffentlichen Seite', () => {
   });
 
   it('lässt das Speichern gelingen, auch wenn der Neubau-Aufruf scheitert', async () => {
-    process.env['VERCEL_DEPLOY_HOOK_URL'] = 'https://deploy.test.example/hook';
+    process.env['DEPLOY_HOOK_URL'] = 'https://deploy.test.example/hook';
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('Netzwerk weg')));
     const redaktion = await alsNutzer(redaktionId);
     const angelegt = await payload.create({

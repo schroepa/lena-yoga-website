@@ -24,3 +24,4 @@ test-results/
 
 # Lokale Datenbank
 .data/
+*.tsbuildinfo

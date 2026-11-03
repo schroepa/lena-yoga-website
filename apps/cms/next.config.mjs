@@ -1,5 +1,8 @@
 import { withPayload } from '@payloadcms/next/withPayload';
 
+// Öffentliche Adresse des Medien-Speichers (R2). Nur diese Herkunft darf Bilder und Audio liefern.
+const medien = process.env.R2_PUBLIC_URL ? new URL(process.env.R2_PUBLIC_URL).origin : '';
+
 /**
  * Sicherheits-Header für das CMS.
  * Das Admin-Backend braucht inline Skripte und Styles (Next.js und Payload),
@@ -10,10 +13,10 @@ const csp = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://*.public.blob.vercel-storage.com",
-  "media-src 'self' blob: https://*.public.blob.vercel-storage.com",
+  `img-src 'self' data: blob: ${medien}`.trim(),
+  `media-src 'self' blob: ${medien}`.trim(),
   "font-src 'self' data:",
-  "connect-src 'self' https://*.public.blob.vercel-storage.com https://vercel.com",
+  `connect-src 'self' ${medien}`.trim(),
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",

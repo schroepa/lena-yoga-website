@@ -1,7 +1,7 @@
 # Umsetzung: Architektur, Sicherheit, Qualität
 
 Stand: Entwurf zur Freigabe. Noch nichts gebaut.
-Ziel: Schnelle Seite mit Astro, Inhalte in Payload CMS, Code auf GitHub, Auslieferung über Vercel.
+Ziel: Schnelle Seite mit Astro, Inhalte in Payload CMS, Code auf GitHub, Seite bei Cloudflare Pages, CMS bei Render.
 Anspruch: Lighthouse 100 in allen vier Kategorien, Sicherheit und Codequalität auf aktuellem Stand.
 
 ## Entschieden (Antworten von Patrick)
@@ -12,15 +12,15 @@ Anspruch: Lighthouse 100 in allen vier Kategorien, Sicherheit und Codequalität 
 
 ## 1. Empfehlung in Kürze
 
-| Thema     | Empfehlung                                                                                                                                     | Grund                                                                                                                                                                                                                          |
-| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Frontend  | Astro, **rein statisch** (`output: "static"`), Inhalte beim Build aus Payload gezogen                                                          | HTML ohne Laufzeit-JavaScript ist der sicherste Weg zu Lighthouse 100 und zu kurzen Ladezeiten. Kein Server, der ausfallen oder angegriffen werden kann.                                                                       |
-| CMS       | Payload 3 als **eigenes Vercel-Projekt** (läuft auf Next.js), nur für Lena erreichbar                                                          | Payload 3 ist für den Betrieb in Next.js gebaut. Astro als getrenntes Frontend ist der übliche Weg bei „headless", aber weniger ausgetreten als Next.js + Payload. Das ist ein Risiko, das wir früh mit einem Prototyp prüfen. |
-| Datenbank | PostgreSQL bei Neon (über Vercel Marketplace)                                                                                                  | Von Payload und Vercel offiziell unterstützt, Branches für Vorschau.                                                                                                                                                           |
-| Medien    | Vercel Blob (Bilder, Audio)                                                                                                                    | Offizieller Adapter, CDN inklusive.                                                                                                                                                                                            |
-| Repo      | Ein Monorepo auf GitHub (pnpm): `apps/web` (Astro), `apps/cms` (Payload), `packages/tokens` (Design-Tokens aus Figma)                          | Eine Versionierung, eine CI, Tokens an einer Stelle.                                                                                                                                                                           |
-| Deploy    | Zwei Vercel-Projekte aus demselben Repo (Root-Verzeichnis je App). Nach Veröffentlichung in Payload löst ein Hook den Build des Frontends aus. | Inhalte erscheinen nach ein bis zwei Minuten, die Seite bleibt statisch.                                                                                                                                                       |
-| Qualität  | Lighthouse CI als Pflicht-Check in jedem Pull Request                                                                                          | Schwellwert 100, kein Merge darunter.                                                                                                                                                                                          |
+| Thema     | Empfehlung                                                                                                                                        | Grund                                                                                                                                                                                                                          |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Frontend  | Astro, **rein statisch** (`output: "static"`), Inhalte beim Build aus Payload gezogen                                                             | HTML ohne Laufzeit-JavaScript ist der sicherste Weg zu Lighthouse 100 und zu kurzen Ladezeiten. Kein Server, der ausfallen oder angegriffen werden kann.                                                                       |
+| CMS       | Payload 3 als **eigener Dienst bei Render** (läuft auf Next.js), nur für Lena erreichbar                                                          | Payload 3 ist für den Betrieb in Next.js gebaut. Astro als getrenntes Frontend ist der übliche Weg bei „headless", aber weniger ausgetreten als Next.js + Payload. Das ist ein Risiko, das wir früh mit einem Prototyp prüfen. |
+| Datenbank | PostgreSQL bei Neon                                                                                                                               | Von Payload offiziell unterstützt, Branches für Vorschau.                                                                                                                                                                      |
+| Medien    | Cloudflare R2 (Bilder, Audio, S3-kompatibel)                                                                                                      | Offizieller Adapter, CDN inklusive.                                                                                                                                                                                            |
+| Repo      | Ein Monorepo auf GitHub (pnpm): `apps/web` (Astro), `apps/cms` (Payload), `packages/tokens` (Design-Tokens aus Figma)                             | Eine Versionierung, eine CI, Tokens an einer Stelle.                                                                                                                                                                           |
+| Deploy    | Seite bei Cloudflare Pages, CMS bei Render, beide aus demselben Repo. Nach Veröffentlichung in Payload löst ein Hook den Build des Frontends aus. | Inhalte erscheinen nach ein bis zwei Minuten, die Seite bleibt statisch.                                                                                                                                                       |
+| Qualität  | Lighthouse CI als Pflicht-Check in jedem Pull Request                                                                                             | Schwellwert 100, kein Merge darunter.                                                                                                                                                                                          |
 
 ## 2. Was „Lighthouse 100 überall" bedeutet
 
@@ -50,10 +50,10 @@ Machbar auf einer statischen Seite, aber nicht automatisch und nicht zu garantie
 ### Öffentliche Seite
 
 - Statische Auslieferung. Keine Datenbankverbindung vom Frontend aus.
-- **Sicherheits-Header** über `vercel.json`: `Content-Security-Policy` (strikt, ohne `unsafe-inline`, mit Nonces oder Hashes), `Strict-Transport-Security` (mit Preload), `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Cross-Origin-Opener-Policy`, `frame-ancestors 'none'`.
+- **Sicherheits-Header** über `apps/web/public/_headers`: `Content-Security-Policy` (strikt, ohne `unsafe-inline`, mit Nonces oder Hashes), `Strict-Transport-Security` (mit Preload), `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Cross-Origin-Opener-Policy`, `frame-ancestors 'none'`.
 - Keine Cookies. Damit entfällt der Cookie-Banner und es gibt keine Einwilligungsfrage.
 - Statistik, falls gewünscht: cookiefrei und ohne Drittanbieter-Skript (zum Beispiel serverseitig oder eigener Zähler). Entscheidung offen (siehe Fragen).
-- Kontaktformular („Lena schreiben"): kleiner Endpunkt (Vercel Function) mit Validierung, Honeypot, Ratenbegrenzung und ohne Speicherung personenbezogener Daten über das Nötige hinaus. Kein CAPTCHA-Dienst von außen. Versand per E-Mail-Dienst mit Auftragsverarbeitung (EU).
+- Kontaktformular („Lena schreiben"): kleiner Endpunkt (Cloudflare Pages Function) mit Validierung, Honeypot, Ratenbegrenzung und ohne Speicherung personenbezogener Daten über das Nötige hinaus. Kein CAPTCHA-Dienst von außen. Versand per E-Mail-Dienst mit Auftragsverarbeitung (EU).
 
 ### CMS (Payload)
 
@@ -62,7 +62,7 @@ Machbar auf einer statischen Seite, aber nicht automatisch und nicht zu garantie
 - Rollen: Redaktion (Lena) darf Inhalte bearbeiten. Nur Admin darf Benutzer und Einstellungen ändern. Zugriffsregeln pro Sammlung und Feld in Code definiert, **Standard ist „verboten"**.
 - Öffentliche API nur lesend und nur für veröffentlichte Inhalte. Entwürfe nur mit geheimem Token.
 - Uploads: erlaubte Dateitypen und Größen begrenzt, Bilder werden neu kodiert (entfernt Metadaten wie GPS), Audio auf MP3 begrenzt.
-- Geheimnisse (`PAYLOAD_SECRET`, Datenbank, Blob-Token) nur als Vercel-Umgebungsvariablen. Niemals im Repo. Unterschiedliche Werte für Vorschau und Produktion.
+- Geheimnisse (`PAYLOAD_SECRET`, Datenbank, R2-Schlüssel) nur als Umgebungsvariablen bei den Hostern. Niemals im Repo. Unterschiedliche Werte für Vorschau und Produktion.
 - Backups der Datenbank (Neon Point-in-Time-Recovery) und regelmäßiger Wiederherstellungstest.
 
 ### GitHub und Lieferkette
@@ -71,8 +71,8 @@ Machbar auf einer statischen Seite, aber nicht automatisch und nicht zu garantie
 - **Dependabot oder Renovate** für Abhängigkeiten, wöchentlich, mit Gruppierung. Lockfile eingecheckt, Installation nur mit `--frozen-lockfile`.
 - **CodeQL**, **Secret Scanning** mit Push-Schutz, `pnpm audit` (oder OSV-Scanner) in der CI.
 - GitHub-Actions-Berechtigungen auf das Minimum (`permissions: contents: read`), Actions auf Commit-Hash festgelegt.
-- Vercel: Produktionsumgebung nur aus `main`, Schutz der Vorschau-Deployments, keine Secrets in Vorschau-Logs.
-- Datenschutz und Recht: Impressum, Datenschutzerklärung, Auftragsverarbeitungsverträge mit Vercel, Neon und dem E-Mail-Dienst. Rechtstexte liefert eine fachkundige Stelle, nicht wir.
+- Cloudflare und Render: Produktion nur aus `main` (Render erst nach grünen Prüfungen), keine Secrets in Logs.
+- Datenschutz und Recht: Impressum, Datenschutzerklärung, Auftragsverarbeitungsverträge mit Cloudflare, Render, Neon und dem E-Mail-Dienst. Rechtstexte liefert eine fachkundige Stelle, nicht wir.
 
 ## 4. Codequalität
 
@@ -106,7 +106,7 @@ Seiten wie Start, Lena und Yoga entdecken bestehen aus festen Abschnitten mit be
 
 ## 6. Vorschlag für die Reihenfolge
 
-1. **Fundament:** Monorepo, Tooling (TypeScript, ESLint, Prettier, Vitest), GitHub-Schutzregeln, CI-Gerüst, Vercel-Projekte, Sicherheits-Header. Erste leere Seite, die schon Lighthouse 100 erreicht.
+1. **Fundament:** Monorepo, Tooling (TypeScript, ESLint, Prettier, Vitest), GitHub-Schutzregeln, CI-Gerüst, Hosting, Sicherheits-Header. Erste leere Seite, die schon Lighthouse 100 erreicht.
 2. **Tokens und Basis:** Tokens als Paket, Schriften (WOFF2, Subset), Layout, Header, Footer, Mobiles Menü.
 3. **Payload-Prototyp:** Sammlungen, Rollen, Zugriff, Vorschau, Deploy-Hook. Test: Inhalt ändern, Seite aktualisiert sich.
 4. **Seiten in der Reihenfolge Start, Kurse, Yoga entdecken, Meditation, Gedanken, Lena.** Pro Seite: Komponenten, Inhalte aus Payload, Tests, Lighthouse.
@@ -120,17 +120,17 @@ Jeder Schritt ist ein eigener Pull Request mit grüner CI.
 - **Die Schrift der Überschriften (PP Eiko)** ist eine kommerzielle Schrift. Für die Webnutzung braucht es eine passende **Lizenz**. Ohne Lizenz verwenden wir stattdessen die freie Schrift Fraunces. Rechtlich ist das Voraussetzung, kein Geschmack.
 - **Fotos:** Die Bilder stammen aus Lenas Instagram. Für die Seite braucht es Originaldateien in hoher Auflösung (Exportwerte aus Instagram sind klein und komprimiert) sowie die Einwilligung der gezeigten Personen.
 - **Buchung:** Technisch am einfachsten sind Links zu Sophies Safe Space. Ein eigenes Buchungssystem wäre ein eigenes Projekt (Zahlung, Datenschutz, Kalender).
-- **Betrieb und Kosten:** Vercel Pro, Neon und Blob haben Kosten, die mit Zugriffen und Speicher steigen. Wir setzen Grenzen und Warnungen.
+- **Betrieb und Kosten:** Cloudflare, Render, Neon und R2 haben Gratis-Grenzen, danach Kosten, die mit Zugriffen und Speicher steigen. Wir setzen Grenzen und Warnungen.
 - **Lighthouse-Variabilität:** Ein einzelner Lauf unter 100 ist kein Fehler der Seite. Der Maßstab ist der Median mehrerer Läufe in CI.
 
 ## 8. Stand: Schritt 1 abgeschlossen (lokal)
 
 - Monorepo mit pnpm, Node 24, strikter Lieferketten-Konfiguration (neue Versionen erst nach drei Tagen, keine Rückschritte bei Herkunftsnachweisen, Installationsskripte nur für drei Pakete).
-- Astro (statisch) mit Basis-Layout, Logo, Schriften (Fraunces und DM Sans, selbst gehostet, zusammen rund 46 KB), Content-Security-Policy mit Hashes und Sicherheits-Header über `vercel.json`.
+- Astro (statisch) mit Basis-Layout, Logo, Schriften (Fraunces und DM Sans, selbst gehostet, zusammen rund 46 KB), Content-Security-Policy mit Hashes und Sicherheits-Header über `apps/web/public/_headers`.
 - Prüfungen laufen lokal grün: Format, ESLint (streng, mit Barrierefreiheitsregeln), TypeScript (strictest), Vitest, Playwright mit axe (mobil und Desktop), `pnpm audit`.
 - Lighthouse 13.6 mobil und Desktop: **100 in allen fünf Kategorien**, auch in der neuen, noch experimentellen Kategorie „Agentic Browsing". Lade- und Renderzeiten unter 0,7 s im Labor.
 - CI-Dateien für GitHub sind geschrieben (Qualität, Ende-zu-Ende, Lighthouse mit fünf Läufen, Lieferkette, CodeQL, Dependabot), aber noch nie auf GitHub gelaufen. Das Repository ist angelegt: https://github.com/schroepa/lena-yoga-website (öffentlich, `main` geschützt, alle fünf Prüfungen auf GitHub grün).
-- Offen für Schritt 1: Vercel-Projekt verbinden (Import im Dashboard, Root `apps/web`), danach `node scripts/pruefe-live.mjs <Adresse>` und Lighthouse gegen die echte Adresse ausführen.
+- Offen für Schritt 1: Seite bei Cloudflare Pages verbinden (siehe `docs/hosting-cms.md`), danach `node scripts/pruefe-live.mjs <Adresse>` und Lighthouse gegen die echte Adresse ausführen.
 
 ## 9. Stand: Schritt 3 (Payload-Prototyp, lokal geprüft)
 
@@ -141,7 +141,7 @@ Jeder Schritt ist ein eigener Pull Request mit grüner CI.
 - Anmeldung: Sitzung zwei Stunden, nach fünf Fehlversuchen zehn Minuten Sperre, Cookies `HttpOnly`/`SameSite`, keine API-Schlüssel, keine GraphQL-Schnittstelle, CORS und CSRF nur für Seite und CMS.
 - Eingaben: Uhrzeiten, https-Links und Navigationslinks werden geprüft (kein `javascript:`), Slugs nur `a-z0-9-`.
 - Veröffentlichen löst einen Neubau der Seite aus (Deploy Hook). Entwürfe nicht. Scheitert der Aufruf, bleibt die Änderung gespeichert.
-- Datenbank: im Betrieb nur über Migrationen (`payload migrate` im Vercel-Build), lokal und in Tests per Schema-Abgleich.
+- Datenbank: im Betrieb nur über Migrationen (`payload migrate` im Build bei Render), lokal und in Tests per Schema-Abgleich.
 - Frontend (`apps/web`): `CMS_URL` gesetzt: Inhalte kommen beim Build aus der öffentlichen API, jede Antwort wird mit Zod geprüft. **Ist das CMS nicht erreichbar oder die Antwort ungültig, bricht der Build ab, die alte Seite bleibt online.** Ohne `CMS_URL` (lokal, CI) nutzt der Build Beispieldaten.
 - Seite `/kurse` als Prototyp der Anbindung (endgültiges Design in Schritt 4).
 
@@ -149,7 +149,7 @@ Jeder Schritt ist ein eigener Pull Request mit grüner CI.
 
 **Noch nicht erledigt, bewusst offen:**
 
-- **Zwei-Faktor-Anmeldung:** Payload bringt sie nicht mit. Optionen: Erweiterung prüfen, oder das CMS hinter Vercel-Schutz / Cloudflare Access stellen. Muss vor dem Livegang entschieden werden.
-- **Hosting:** Zweites Vercel-Projekt (`apps/cms`), Neon-Datenbank, Vercel Blob, Deploy Hook. Brauchen Konten und Zugänge.
+- **Zwei-Faktor-Anmeldung:** Payload bringt sie nicht mit. Optionen: Erweiterung prüfen, oder das CMS hinter Zugangsschutz vor dem CMS (Cloudflare Access) stellen. Muss vor dem Livegang entschieden werden.
+- **Hosting:** CMS bei Render, Neon-Datenbank, R2-Speicher, Deploy Hook von Cloudflare Pages. Anleitung: `docs/hosting-cms.md`.
 - **Abhängigkeiten:** Eine Ausnahme bei der Herkunftsprüfung (`pino@9.14.0`, von Payload vorgeschrieben) und drei Überschreibungen für Sicherheitslücken in indirekten Paketen (`dompurify`, `happy-dom`, `esbuild`). Offen bleibt eine geringe Meldung zu `deepmerge` ohne verfügbare Korrektur.
 - **Vorschau für Lena:** Entwürfe sind im CMS sichtbar, eine Vorschau der gebauten Seite folgt.

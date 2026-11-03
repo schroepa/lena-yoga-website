@@ -1,0 +1,38 @@
+# Blueprint für das CMS bei Render. Die Werte der geheimen Variablen (sync: false)
+# trägst du beim Anlegen im Render-Dashboard ein, sie stehen nie im Repository.
+services:
+  - type: web
+    name: lena-yoga-cms
+    runtime: node
+    region: frankfurt
+    plan: free
+    # Neu bauen erst, wenn die Prüfungen auf GitHub grün sind.
+    autoDeployTrigger: checksPass
+    buildCommand: corepack enable && pnpm install --frozen-lockfile --prod=false && pnpm --filter @lena/cms build:server
+    startCommand: pnpm --filter @lena/cms start
+    healthCheckPath: /admin/login
+    envVars:
+      - key: NODE_VERSION
+        value: 24.22.2
+      - key: NODE_ENV
+        value: production
+      - key: PAYLOAD_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+      - key: CMS_ORIGIN
+        sync: false
+      - key: WEB_ORIGIN
+        sync: false
+      - key: DEPLOY_HOOK_URL
+        sync: false
+      - key: R2_BUCKET
+        sync: false
+      - key: R2_ENDPOINT
+        sync: false
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: R2_PUBLIC_URL
+        sync: false

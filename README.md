@@ -1,7 +1,7 @@
 # Lena Yoga: Website
 
 Website für Lena (Yoga für alle Körper, online über Sophies Safe Space und im Studio).
-Frontend mit [Astro](https://astro.build) (rein statisch), Inhalte in Payload CMS, Auslieferung über Vercel.
+Frontend mit [Astro](https://astro.build) (rein statisch), Inhalte in Payload CMS, Seite bei Cloudflare Pages, CMS bei Render.
 
 | Ordner            | Inhalt                                            |
 | ----------------- | ------------------------------------------------- |
@@ -35,4 +35,4 @@ pnpm lighthouse     # Lighthouse mobil und Desktop, Median, Ziel 100 in allen Ka
 
 ## Sicherheit
 
-Siehe [SECURITY.md](SECURITY.md). Sicherheits-Header stehen in `apps/web/vercel.json`.
+Siehe [SECURITY.md](SECURITY.md). Sicherheits-Header stehen in `apps/web/public/_headers`.

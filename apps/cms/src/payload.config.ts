@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 
 import { postgresAdapter } from '@payloadcms/db-postgres';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob';
+import { s3Storage } from '@payloadcms/storage-s3';
 import { buildConfig } from 'payload';
 import sharp from 'sharp';
 
@@ -22,6 +22,10 @@ import { leseUmgebung } from './lib/env';
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const umgebung = leseUmgebung();
 
+/** Dateien liegen öffentlich lesbar im Bucket und werden direkt von dort ausgeliefert (schnell, ohne CMS). */
+const dateiAdresse = ({ filename, prefix }: { filename: string; prefix?: string }): string =>
+  `${umgebung.medien?.oeffentlicheAdresse ?? ''}/${prefix ? `${prefix}/` : ''}${encodeURIComponent(filename)}`;
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -35,7 +39,7 @@ export default buildConfig({
   editor: lexicalEditor(),
   secret: umgebung.secret,
   db: postgresAdapter({
-    // Wenige Verbindungen pro Instanz, weil jede Anfrage als eigene Serverless-Funktion laufen kann.
+    // Wenige Verbindungen, damit die kleine Datenbank im Gratis-Tarif nicht überlastet wird.
     pool: { connectionString: umgebung.datenbank, max: 5 },
     // Im Betrieb ändert sich das Schema nur über geprüfte Migrationen.
     push: !umgebung.istProduktion,
@@ -51,11 +55,23 @@ export default buildConfig({
   telemetry: false,
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },
   plugins: [
-    ...(umgebung.blobToken
+    ...(umgebung.medien
       ? [
-          vercelBlobStorage({
-            collections: { media: true, audio: true },
-            token: umgebung.blobToken,
+          s3Storage({
+            collections: {
+              media: { disablePayloadAccessControl: true, generateFileURL: dateiAdresse },
+              audio: { disablePayloadAccessControl: true, generateFileURL: dateiAdresse },
+            },
+            bucket: umgebung.medien.bucket,
+            config: {
+              region: 'auto',
+              endpoint: umgebung.medien.endpunkt,
+              forcePathStyle: true,
+              credentials: {
+                accessKeyId: umgebung.medien.zugangsschluessel,
+                secretAccessKey: umgebung.medien.geheimerSchluessel,
+              },
+            },
           }),
         ]
       : []),
