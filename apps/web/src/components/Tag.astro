@@ -1,0 +1,48 @@
+---
+/**
+ * Tag (Figma: Komponente · Tag). Nicht klickbar, nur Beschriftung.
+ */
+interface Props {
+  text: string;
+  farbe?: 'butter' | 'lilac' | 'sage';
+}
+
+const { text, farbe = 'butter' } = Astro.props;
+---
+
+<span
+  class:list={[
+    'tag',
+    'text-label-eyebrow',
+    {
+      'tag--butter': farbe === 'butter',
+      'tag--lilac': farbe === 'lilac',
+      'tag--sage': farbe === 'sage',
+    },
+  ]}
+>
+  {text}
+</span>
+
+<style>
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacing-component-inset-xs) var(--spacing-component-inset-md);
+    border-radius: var(--radius-full);
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+
+  .tag--butter {
+    background: var(--color-butter-250);
+  }
+
+  .tag--lilac {
+    background: var(--color-lilac-250);
+  }
+
+  .tag--sage {
+    background: var(--color-sage-200);
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+/**
+ * Kurs-Karte (Figma: Komponente · Kurs-Karte).
+ * Foto, Tag, Titel, Meta-Zeile, Beschreibung und ein Button als Link.
+ */
+import type { ImageMetadata } from 'astro';
+
+import Button from './Button.astro';
+import Photo from './Photo.astro';
+import Tag from './Tag.astro';
+
+interface Props {
+  bild: ImageMetadata;
+  bildAlt: string;
+  bildAusschnitt?: 'mitte' | 'unten';
+  tag: string;
+  tagFarbe: 'butter' | 'lilac' | 'sage';
+  titel: string;
+  meta: string;
+  beschreibung: string;
+  buttonLabel: string;
+  href: string;
+}
+
+const {
+  bild,
+  bildAlt,
+  bildAusschnitt,
+  tag,
+  tagFarbe,
+  titel,
+  meta,
+  beschreibung,
+  buttonLabel,
+  href,
+} = Astro.props;
+---
+
+<article class="kurs-karte">
+  <Photo bild={bild} alt={bildAlt} breite={632} format="karte" ausschnitt={bildAusschnitt} />
+  <div class="kurs-karte__inhalt">
+    <Tag text={tag} farbe={tagFarbe} />
+    <h3 class="text-heading-h3">{titel}</h3>
+    <p class="text-body-small kurs-karte__meta">{meta}</p>
+    <p class="text-body-default kurs-karte__text">{beschreibung}</p>
+    <Button stil="ghost" label={buttonLabel} href={href} />
+  </div>
+</article>
+
+<style>
+  .kurs-karte {
+    display: grid;
+    gap: var(--spacing-lg);
+    align-content: start;
+  }
+
+  .kurs-karte__inhalt {
+    display: grid;
+    gap: var(--spacing-md);
+    justify-items: start;
+  }
+
+  .kurs-karte__meta,
+  .kurs-karte__text {
+    color: var(--text-muted);
+  }
+</style>

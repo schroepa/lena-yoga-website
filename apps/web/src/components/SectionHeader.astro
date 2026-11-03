@@ -1,0 +1,36 @@
+---
+/**
+ * Abschnittskopf (Figma: Komponente · Abschnittskopf).
+ * Die Überschriftenebene ist wählbar, damit die Gliederung der Seite stimmt.
+ */
+interface Props {
+  titel: string;
+  /** Für aria-labelledby des umgebenden Abschnitts. */
+  id?: string;
+  text?: string;
+  ebene?: 2 | 3;
+  class?: string;
+}
+
+const { titel, id, text, ebene = 2, class: klasse } = Astro.props;
+const Ueberschrift = `h${String(ebene)}` as 'h2' | 'h3';
+---
+
+<div class:list={['abschnittskopf', klasse]}>
+  <Ueberschrift id={id} class="text-heading-h2">
+    {titel}
+  </Ueberschrift>
+  {text && <p class="text-body-large">{text}</p>}
+</div>
+
+<style>
+  .abschnittskopf {
+    display: grid;
+    gap: var(--spacing-md);
+    max-width: 48rem;
+  }
+
+  p {
+    color: var(--text-muted);
+  }
+</style>

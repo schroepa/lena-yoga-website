@@ -1,0 +1,79 @@
+---
+/**
+ * Beitrag-Teaser (Figma: Komponente · Beitrag-Teaser).
+ * Mit Bild (Desktop) oder ohne (mobil, bild="ohne"). Die ganze Fläche ist ein Link auf den Titel.
+ */
+import type { ImageMetadata } from 'astro';
+
+import Photo from './Photo.astro';
+
+interface Props {
+  kategorie: string;
+  titel: string;
+  lesezeit: string;
+  href: string;
+  bild?: ImageMetadata;
+  bildAlt?: string;
+  bildAusschnitt?: 'mitte' | 'unten';
+}
+
+const { kategorie, titel, lesezeit, href, bild, bildAlt = '', bildAusschnitt } = Astro.props;
+---
+
+<article class="teaser">
+  {bild && (
+    <Photo
+      bild={bild}
+      alt={bildAlt}
+      breite={632}
+      format="karte"
+      ausschnitt={bildAusschnitt}
+      class="teaser__bild"
+    />
+  )}
+  <p class="text-label-eyebrow teaser__kategorie">{kategorie}</p>
+  <h3 class="text-heading-h3">
+    <a href={href}>{titel}</a>
+  </h3>
+  <p class="text-body-small teaser__lesezeit">{lesezeit}</p>
+</article>
+
+<style>
+  .teaser {
+    position: relative;
+    display: grid;
+    gap: var(--spacing-md);
+    align-content: start;
+  }
+
+  .teaser__kategorie,
+  .teaser__lesezeit {
+    color: var(--text-muted);
+  }
+
+  .teaser a {
+    text-decoration: none;
+  }
+
+  /* Die ganze Karte ist klickbar, der Link bleibt trotzdem nur der Titel für Screenreader. */
+  .teaser a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .teaser a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .teaser :global(.foto) {
+    display: none;
+  }
+
+  @media (min-width: 48rem) {
+    .teaser :global(.foto) {
+      display: block;
+    }
+  }
+</style>

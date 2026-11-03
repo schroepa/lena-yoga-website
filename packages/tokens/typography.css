@@ -114,3 +114,12 @@
   font-size: var(--font-size-body);
   line-height: var(--line-height-button);
 }
+
+.text-quote {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--font-size-quote);
+  line-height: var(--line-height-quote);
+  letter-spacing: -0.005em;
+}

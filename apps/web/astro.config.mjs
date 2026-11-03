@@ -41,7 +41,8 @@ export default defineConfig({
       name: 'Fraunces',
       cssVariable: '--font-heading',
       weights: ['400'],
-      styles: ['normal'],
+      // Kursiv nur für das Zitat im Lena-Abschnitt.
+      styles: ['normal', 'italic'],
       subsets: ['latin'],
       display: 'swap',
       fallbacks: ['Georgia', 'serif'],
