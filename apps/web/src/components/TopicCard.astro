@@ -33,7 +33,12 @@ const { titel, text, link, href, class: klasse } = Astro.props;
     color: var(--text-muted);
   }
 
+  /* 44 px hoch zum Antippen, der Abstand nach oben gleicht die Höhe optisch aus. */
   a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--sizing-44);
+    margin-block: calc(var(--spacing-xs) * -1) calc(var(--spacing-xs) * -1);
     color: var(--text-primary);
   }
 </style>

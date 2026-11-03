@@ -19,13 +19,17 @@ const { frage, offen = true } = Astro.props;
 
 <style>
   .frage {
-    padding-block: var(--spacing-xl);
+    padding-block: var(--spacing-md);
     border-block-start: 1px solid var(--border-default);
   }
 
+  /* Mindestens 44 px hoch, damit man die Frage auf dem Handy gut trifft. */
   .frage summary {
+    display: flex;
+    align-items: center;
+    min-height: var(--sizing-44);
+    padding-block: var(--spacing-3xs);
     cursor: pointer;
-    list-style-position: outside;
   }
 
   .frage__antwort {

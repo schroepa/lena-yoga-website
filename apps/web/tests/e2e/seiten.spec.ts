@@ -46,6 +46,22 @@ for (const pfad of seiten) {
       expect(ueberstand).toEqual({ doc: 0, texte: [] });
     });
 
+    test('hat auf dem Handy nur Tippflächen von mindestens 44 px Höhe', async ({ page }) => {
+      await page.setViewportSize({ width: 375, height: 812 });
+      await page.goto(pfad);
+      const zuKlein = await page.evaluate(() =>
+        [...document.querySelectorAll('a, button, summary')]
+          // Karten sind ganz klickbar: Der Link wird per Pseudo-Element über die Karte gelegt.
+          .filter((e) => !e.closest('.anleitung'))
+          .filter((e) => {
+            const r = e.getBoundingClientRect();
+            return r.width > 0 && r.height > 0 && r.height < 43.5;
+          })
+          .map((e) => e.textContent.trim().slice(0, 30)),
+      );
+      expect(zuKlein).toEqual([]);
+    });
+
     test('lädt keine Ressourcen von fremden Servern', async ({ page, baseURL }) => {
       const fremde: string[] = [];
       page.on('request', (anfrage) => {

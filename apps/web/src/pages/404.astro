@@ -1,0 +1,64 @@
+---
+/**
+ * Fehlerseite. Mehrere Links der Navigation führen noch zu Seiten, die erst gebaut werden,
+ * deshalb zeigt sie freundlich den Weg zu den vorhandenen Seiten.
+ */
+import Button from '../components/Button.astro';
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Seite nicht gefunden | Lena Yoga"
+  description="Diese Seite gibt es noch nicht. Hier geht es zu den Kursen, zu Yoga entdecken und zu den Meditationen."
+  path="/404"
+>
+  <div class="container fehler">
+    <h1 class="text-display">Diese Seite gibt es noch nicht.</h1>
+    <p class="text-body-large">
+      Vielleicht ist sie gerade in Arbeit. Von hier kommst du zu den Seiten, die schon da sind.
+    </p>
+    <div class="fehler__knoepfe">
+      <Button label="Zur Startseite" href="/" />
+      <Button label="Kurse ansehen" stil="sekundaer" href="/kurse" />
+      <Button label="Yoga entdecken" stil="sekundaer" href="/yoga-entdecken" />
+    </div>
+  </div>
+</Base>
+
+<style>
+  .fehler {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-2xl);
+    justify-items: start;
+    padding-block: var(--spacing-4xl);
+  }
+
+  .fehler p {
+    max-width: 35rem;
+    color: var(--text-muted);
+  }
+
+  .fehler h1 {
+    hyphens: auto;
+    overflow-wrap: break-word;
+  }
+
+  .fehler__knoepfe {
+    display: grid;
+    gap: var(--spacing-md);
+    width: 100%;
+  }
+
+  @media (min-width: 48rem) {
+    .fehler {
+      padding-block: var(--spacing-6xl);
+    }
+
+    .fehler__knoepfe {
+      display: flex;
+      flex-wrap: wrap;
+      width: auto;
+    }
+  }
+</style>
