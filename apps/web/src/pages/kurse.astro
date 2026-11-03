@@ -1,10 +1,10 @@
 ---
 /**
- * Kurse (Prototyp für die Anbindung ans CMS). Das endgültige Design folgt in Schritt 4.
+ * Kurse (Prototyp). Die Kurse stehen als Dateien in src/content/kurse. Das endgültige Design folgt in Schritt 4.
  */
 import Button from '../components/Button.astro';
 import Base from '../layouts/Base.astro';
-import { ladeKurse } from '../lib/cms';
+import { ladeKurse } from '../lib/inhalte';
 
 const kurse = await ladeKurse();
 const gruppen = [

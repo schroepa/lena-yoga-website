@@ -2,7 +2,7 @@
   "name": "hello-lena-yoga",
   "private": true,
   "version": "0.0.0",
-  "description": "Website für Lena Yoga: Astro-Frontend, Payload CMS, Design-Tokens.",
+  "description": "Website für Lena Yoga: Astro-Frontend, Inhalte als Dateien, Design-Tokens.",
   "type": "module",
   "packageManager": "pnpm@10.25.0",
   "engines": {
@@ -13,7 +13,7 @@
     "dev": "pnpm --filter @lena/web dev",
     "build": "pnpm --filter @lena/web build",
     "preview": "pnpm --filter @lena/web preview",
-    "lint": "eslint .",
+    "lint": "pnpm --filter @lena/web sync && eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "pnpm -r --if-present typecheck",

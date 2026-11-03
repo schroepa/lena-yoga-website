@@ -11,7 +11,7 @@ Wir bestätigen den Eingang innerhalb von drei Werktagen und melden uns mit eine
 
 - Die öffentliche Seite ist statisch. Es gibt keine Datenbankverbindung vom Frontend aus.
 - Keine Cookies, keine Drittanbieter-Skripte, keine Statistik.
-- Geheimnisse liegen nur in Umgebungsvariablen von Vercel, nie im Repository.
+- Es gibt keine Geheimnisse im Betrieb. Die einzige Einstellung ist die Adresse der Seite (`PUBLIC_SITE_URL`) in Vercel.
 - Abhängigkeiten werden über ein Lockfile aufgelöst, neue Versionen erst nach drei Tagen.
 - Jede Änderung läuft über einen Pull Request mit grüner Prüfung (Lint, Typen, Tests, Barrierefreiheit,
   Lighthouse, CodeQL).

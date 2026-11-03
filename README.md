@@ -1,12 +1,11 @@
 # Lena Yoga: Website
 
 Website für Lena (Yoga für alle Körper, online über Sophies Safe Space und im Studio).
-Frontend mit [Astro](https://astro.build) (rein statisch), Inhalte in Payload CMS, Auslieferung über Vercel.
+Frontend mit [Astro](https://astro.build) (rein statisch), Inhalte als Dateien im Repository, Auslieferung über Vercel.
 
 | Ordner            | Inhalt                                            |
 | ----------------- | ------------------------------------------------- |
 | `apps/web`        | Astro-Frontend                                    |
-| `apps/cms`        | Payload CMS (folgt in Schritt 3)                  |
 | `packages/tokens` | Design-Tokens aus Figma als CSS Custom Properties |
 | `docs`            | Architektur, UX-Audit, Prüfung auf „KI-Look"      |
 | `scripts`         | Lighthouse-Prüfung, GitHub-Einrichtung            |
