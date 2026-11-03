@@ -1,0 +1,61 @@
+---
+/**
+ * Anleitungs-Karte (Figma: Komponente · Anleitungs-Karte). Foto, Tag, Titel und Meta-Zeile.
+ * Die ganze Karte ist ein Link: Der Link sitzt im Titel und wird per Pseudo-Element über die Karte gelegt.
+ */
+import type { ImageMetadata } from 'astro';
+
+import Photo from './Photo.astro';
+import Tag from './Tag.astro';
+
+interface Props {
+  bild: ImageMetadata;
+  bildAlt: string;
+  bildAusschnitt?: 'mitte' | 'oben' | 'unten' | undefined;
+  tag: string;
+  titel: string;
+  meta: string;
+  href: string;
+}
+
+const { bild, bildAlt, bildAusschnitt, tag, titel, meta, href } = Astro.props;
+---
+
+<article class="anleitung">
+  <Photo bild={bild} alt={bildAlt} breite={540} format="karte" ausschnitt={bildAusschnitt} />
+  <Tag text={tag} farbe="sage" />
+  <h3 class="text-heading-h3">
+    <a {href}>{titel}</a>
+  </h3>
+  <p class="text-body-small anleitung__meta">{meta}</p>
+</article>
+
+<style>
+  .anleitung {
+    position: relative;
+    display: grid;
+    gap: var(--spacing-md);
+    align-content: start;
+    justify-items: start;
+  }
+
+  .anleitung a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Macht die ganze Karte klickbar. */
+  .anleitung a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .anleitung a:hover {
+    text-decoration: underline;
+  }
+
+  .anleitung__meta {
+    color: var(--text-muted);
+  }
+</style>

@@ -1,0 +1,36 @@
+---
+/**
+ * Hinweisbox (Figma: Komponente · Hinweisbox). Kurzer Hinweis mit Titel, zum Beispiel "Wenn es zieht".
+ */
+interface Props {
+  titel: string;
+  text: string;
+}
+
+const { titel, text } = Astro.props;
+---
+
+<aside class="hinweis">
+  <p class="text-label-eyebrow hinweis__titel">{titel}</p>
+  <p class="text-body-default">{text}</p>
+</aside>
+
+<style>
+  .hinweis {
+    display: grid;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    background: var(--surface-raised);
+  }
+
+  .hinweis__titel {
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 23.75rem) {
+    .hinweis {
+      padding: var(--spacing-lg);
+    }
+  }
+</style>

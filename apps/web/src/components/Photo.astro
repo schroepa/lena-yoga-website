@@ -16,11 +16,12 @@ interface Props {
   breite: number;
   /**
    * Proportionen aus dem Design. Es gibt sie als feste Varianten, weil die Content-Security-Policy
-   * keine Inline-Styles erlaubt: "hero" 13:16, "lena" 11:13 (mobil schmaler), "intro" 19:22, "karte" fest 220 px hoch.
+   * keine Inline-Styles erlaubt: "hero" 13:16, "lena" 11:13 (mobil schmaler), "intro" 19:22, "karte" fest 220 px hoch,
+   * "beitrag" fest 260 px hoch, "monat" füllt die Höhe der Nachbarspalte (Bogen neben der Anleitung des Monats).
    */
-  format: 'hero' | 'lena' | 'intro' | 'karte';
+  format: 'hero' | 'lena' | 'intro' | 'karte' | 'beitrag' | 'monat';
   /** Welcher Teil des Bildes sichtbar bleibt, wenn zugeschnitten wird. */
-  ausschnitt?: 'mitte' | 'unten' | undefined;
+  ausschnitt?: 'mitte' | 'oben' | 'unten' | undefined;
   priority?: boolean;
   class?: string;
 }
@@ -73,6 +74,10 @@ const {
     object-position: 50% 50%;
   }
 
+  .foto--oben :global(img) {
+    object-position: 50% 3%;
+  }
+
   .foto--unten :global(img) {
     object-position: 50% 85%;
   }
@@ -91,6 +96,26 @@ const {
 
   .foto--karte .foto__rahmen {
     height: 220px;
+  }
+
+  .foto--beitrag .foto__rahmen {
+    height: 260px;
+  }
+
+  /* Höhe kommt von der Nachbarspalte; das Bild liegt absolut, damit es die Zeile nicht aufbläht. */
+  .foto--monat,
+  .foto--monat .foto__rahmen {
+    height: 100%;
+  }
+
+  .foto--monat .foto__rahmen {
+    position: relative;
+    min-height: 26rem;
+  }
+
+  .foto--monat :global(img) {
+    position: absolute;
+    inset: 0;
   }
 
   @media (min-width: 48rem) {

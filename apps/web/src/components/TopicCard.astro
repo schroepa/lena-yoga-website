@@ -1,0 +1,39 @@
+---
+/**
+ * Themenkarte (Figma: Komponente · Themenkarte). Überschrift, Text und ein Link.
+ */
+interface Props {
+  titel: string;
+  text: string;
+  link: string;
+  href: string;
+  class?: string;
+}
+
+const { titel, text, link, href, class: klasse } = Astro.props;
+---
+
+<article class:list={['thema', klasse]}>
+  <h3 class="text-heading-h3">{titel}</h3>
+  <p class="text-body-default">{text}</p>
+  <a class="text-label-button" {href}>
+    {link}
+  </a>
+</article>
+
+<style>
+  .thema {
+    display: grid;
+    gap: var(--spacing-md);
+    align-content: start;
+    justify-items: start;
+  }
+
+  p {
+    color: var(--text-muted);
+  }
+
+  a {
+    color: var(--text-primary);
+  }
+</style>

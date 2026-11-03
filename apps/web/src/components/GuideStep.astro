@@ -1,0 +1,45 @@
+---
+/**
+ * Anleitungsschritt (Figma: Komponente · Anleitungsschritt). Gehört in eine geordnete Liste.
+ * Die Nummer steht im Kreis, die Liste selbst sagt Screenreadern schon, welcher Schritt es ist.
+ */
+interface Props {
+  nummer: number;
+  text: string;
+}
+
+const { nummer, text } = Astro.props;
+---
+
+<li class="schritt">
+  <span class="schritt__nummer text-heading-h4" aria-hidden="true">
+    {nummer}
+  </span>
+  <p class="text-body-default">{text}</p>
+</li>
+
+<style>
+  .schritt {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+  }
+
+  .schritt__nummer {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: var(--sizing-40);
+    height: var(--sizing-40);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-full);
+    background: var(--surface-raised);
+  }
+
+  p {
+    flex: 1;
+    min-width: 0;
+    /* Lange Wörter dürfen umbrechen, damit nichts über den Rand läuft. */
+    overflow-wrap: break-word;
+  }
+</style>

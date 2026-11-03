@@ -1,0 +1,390 @@
+---
+/**
+ * Yoga entdecken (Figma: Yoga entdecken · Mobile und Yoga entdecken · Desktop).
+ * Themen, Anleitung des Monats und weitere Anleitungen sind Texte aus dem Figma-Entwurf
+ * und werden vor dem Livegang mit Lena abgestimmt. Die Seiten hinter den Links folgen später.
+ */
+import Band from '../components/Band.astro';
+import Button from '../components/Button.astro';
+import Callout from '../components/Callout.astro';
+import GuideCard from '../components/GuideCard.astro';
+import GuideStep from '../components/GuideStep.astro';
+import Photo from '../components/Photo.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Tag from '../components/Tag.astro';
+import TopicCard from '../components/TopicCard.astro';
+import berghaltung from '../assets/fotos/kurse-intro.jpg';
+import introBild from '../assets/fotos/kurs-studio.jpg';
+import monatBogen from '../assets/fotos/lena-bogen.jpg';
+import monatKarte from '../assets/fotos/kurs-online.jpg';
+import { hauptaktion } from '../data/navigation';
+import Base from '../layouts/Base.astro';
+
+const themen = [
+  {
+    titel: 'Was ist Yoga?',
+    text: 'Woher es kommt und was dich in einer Stunde erwartet.',
+    link: 'Grundlagen lesen',
+    href: '/yoga-entdecken/was-ist-yoga',
+  },
+  {
+    titel: 'Was du zur ersten Stunde mitbringst',
+    text: 'Kleidung, Matte, Essen vorher: die häufigsten Fragen.',
+    link: 'Ersten Besuch planen',
+    href: '/yoga-entdecken/erste-stunde',
+  },
+  {
+    titel: 'Hilfsmittel im Überblick',
+    text: 'Wofür Block, Decke, Bolster und Stuhl gut sind.',
+    link: 'Hilfsmittel entdecken',
+    href: '/yoga-entdecken/hilfsmittel',
+  },
+  {
+    titel: 'Haltungen anpassen',
+    text: 'Varianten für jeden Körper, mit und ohne Hilfsmittel.',
+    link: 'Anpassungen ansehen',
+    href: '/yoga-entdecken/haltungen-anpassen',
+  },
+];
+
+const monatSchritte = [
+  'Knie hüftbreit oder etwas weiter auf die Matte, die großen Zehen berühren sich.',
+  'Lege eine gefaltete Decke oder ein Bolster zwischen deine Oberschenkel.',
+  'Setz dich langsam Richtung Fersen zurück und lege Oberkörper und Stirn ab.',
+  'Atme ruhig und bleib ein bis drei Minuten. Zum Beenden kommst du mit den Händen langsam hoch.',
+];
+
+const anleitungen = [
+  {
+    bild: berghaltung,
+    bildAlt: 'Lena steht mit über dem Kopf zusammengelegten Händen vor einer hellen Wand.',
+    bildAusschnitt: 'oben',
+    tag: 'Stehen',
+    titel: 'Berghaltung',
+    meta: '3 Min · Alle Level',
+    href: '/yoga-entdecken/berghaltung',
+  },
+  {
+    bild: introBild,
+    bildAlt: 'Lena auf der Matte in einer Haltung, bei der ein Bein nach oben zeigt.',
+    bildAusschnitt: 'unten',
+    tag: 'Vierfüßler',
+    titel: 'Katze und Kuh',
+    meta: '5 Min · Alle Level',
+    href: '/yoga-entdecken/katze-und-kuh',
+  },
+  {
+    bild: monatBogen,
+    bildAlt: 'Lena sitzt auf der Matte und dreht den Oberkörper zur Seite.',
+    bildAusschnitt: 'mitte',
+    tag: 'Sitzen',
+    titel: 'Drehung auf dem Stuhl',
+    meta: '4 Min · Alle Level',
+    href: '/yoga-entdecken/drehung-auf-dem-stuhl',
+  },
+] as const;
+---
+
+<Base
+  title="Yoga entdecken | Lena Yoga"
+  description="Yoga verstehen und zu Hause ausprobieren: Grundlagen, Hilfsmittel und Anleitungen mit Varianten für jeden Körper."
+  path="/yoga-entdecken"
+>
+  <div class="container seite">
+    <section class="intro" aria-labelledby="entdecken-titel">
+      <div class="intro__text">
+        <h1 id="entdecken-titel" class="text-display">
+          Yoga verstehen und ausprobieren.
+        </h1>
+        <p class="text-body-large intro__beschreibung">
+          Hier erkläre ich, was Yoga ist, welche Hilfsmittel es gibt und wie du zu Hause anfängst.
+          Zu jeder Anleitung gibt es Varianten.
+        </p>
+      </div>
+      <div class="intro__bild">
+        <Photo
+          bild={introBild}
+          alt="Lena auf der Matte in einer Haltung, bei der ein Bein nach oben zeigt."
+          form="bogen"
+          breite={380}
+          format="intro"
+          priority
+        />
+      </div>
+    </section>
+
+    <section class="themen" aria-labelledby="themen-titel">
+      <SectionHeader
+        id="themen-titel"
+        titel="Wonach suchst du?"
+        text="Vier Themen für den Einstieg."
+      />
+      <div class="themen__karten">
+        {themen.map((thema, i) => (
+          <div class={`themen__karte themen__karte--${String(i + 1)}`}>
+            <TopicCard {...thema} />
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="monat" aria-labelledby="monat-titel">
+      <div class="monat__bild monat__bild--bogen">
+        <Photo
+          bild={monatBogen}
+          alt="Lena sitzt auf der Matte und dreht den Oberkörper zur Seite."
+          form="bogen"
+          breite={380}
+          format="monat"
+        />
+      </div>
+      <div class="monat__bild monat__bild--karte">
+        <Photo
+          bild={monatKarte}
+          alt="Lena liegt in der Kindhaltung auf der Matte."
+          form="karte"
+          breite={358}
+          format="beitrag"
+        />
+      </div>
+      <div class="monat__inhalt">
+        <Tag text="Anleitung" farbe="sage" />
+        <h2 id="monat-titel" class="text-heading-h2">
+          Die Kindhaltung mit Decke
+        </h2>
+        <p class="text-body-large monat__text">
+          Die Kindhaltung dehnt den unteren Rücken sanft. Mit Decke oder Bolster liegt der
+          Oberkörper bequem auf.
+        </p>
+        <ol class="monat__schritte">
+          {monatSchritte.map((text, i) => (
+            <GuideStep nummer={i + 1} text={text} />
+          ))}
+        </ol>
+        <Callout
+          titel="Wenn es zieht"
+          text="Zieht es an den Knien, lege eine Decke zwischen Waden und Oberschenkel. Kommt das Becken nicht bis zu den Fersen, bleibt es höher."
+        />
+        <div class="monat__aktion">
+          <Button
+            label="Ganze Anleitung lesen"
+            stil="sekundaer"
+            href="/yoga-entdecken/kindhaltung"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="weitere" aria-labelledby="weitere-titel">
+      <SectionHeader
+        id="weitere-titel"
+        titel="Weitere Anleitungen"
+        text="Kurze Übungen mit Varianten, jede unter fünf Minuten."
+      />
+      <div class="weitere__karten">
+        {anleitungen.map((a) => (
+          <GuideCard {...a} />
+        ))}
+      </div>
+      <div class="weitere__aktion">
+        <Button label="Alle Anleitungen" stil="sekundaer" href="/yoga-entdecken/anleitungen" />
+      </div>
+    </section>
+
+    <Band farbe="highlight">
+      <div class="abschluss">
+        <h2 class="text-display">Probestunde buchen und Lena kennenlernen.</h2>
+        <p class="text-body-large abschluss__text">
+          Die erste Stunde ist ein Kennenlernen. Du wählst, ob online über Sophies Safe Space oder
+          im Studio.
+        </p>
+        <div class="knoepfe">
+          <Button label={hauptaktion.label} href={hauptaktion.href} />
+        </div>
+      </div>
+    </Band>
+  </div>
+</Base>
+
+<style>
+  .seite {
+    --abschnittsabstand: var(--spacing-4xl);
+    display: grid;
+    /* minmax(0, 1fr): Spalte darf schmaler sein als ihr Inhalt, sonst läuft die Seite bei 320 px über. */
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--abschnittsabstand);
+    padding-block: var(--abschnittsabstand) 0;
+  }
+
+  .knoepfe,
+  .monat__aktion,
+  .weitere__aktion {
+    display: grid;
+    justify-items: stretch;
+  }
+
+  .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .intro__text {
+    display: grid;
+    gap: var(--sizing-40);
+    justify-items: start;
+  }
+
+  .intro__beschreibung,
+  .monat__text {
+    color: var(--text-muted);
+  }
+
+  /* Das Foto gehört nur zur Desktop-Ansicht. */
+  .intro__bild {
+    display: none;
+  }
+
+  .themen,
+  .weitere {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sizing-56);
+  }
+
+  .themen__karten {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-xl);
+  }
+
+  .monat {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sizing-56);
+  }
+
+  /* Mobil ein Foto im Karten-Format, ab Desktop der Bogen mit einem anderen Bild. */
+  .monat__bild--bogen {
+    display: none;
+  }
+
+  .monat__inhalt {
+    display: grid;
+    gap: var(--sizing-20);
+    align-content: start;
+    justify-items: start;
+  }
+
+  .monat__schritte {
+    display: grid;
+    gap: var(--spacing-2xl);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .monat__inhalt > :global(.hinweis) {
+    width: 100%;
+  }
+
+  .monat__text {
+    max-width: 42.5rem;
+  }
+
+  .weitere__karten {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-2xl);
+  }
+
+  .abschluss {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-2xl);
+  }
+
+  .abschluss__text {
+    max-width: 42.5rem;
+  }
+
+  /* Lange Wörter wie „kennenlernen“ müssen auf schmalen Telefonen umbrechen können. */
+  .abschluss h2 {
+    hyphens: auto;
+    overflow-wrap: break-word;
+  }
+
+  @media (min-width: 48rem) {
+    .seite {
+      --abschnittsabstand: var(--spacing-6xl);
+      /* Der Fußbereich bringt schon 96 px mit, der Rest ergibt 160 px bis zum Fuß. */
+      padding-block-end: calc(var(--abschnittsabstand) - var(--spacing-layout-section-lg));
+    }
+
+    .knoepfe,
+    .monat__aktion,
+    .weitere__aktion {
+      justify-self: start;
+      justify-items: start;
+    }
+
+    .intro {
+      grid-template-columns: minmax(0, 1fr) 23.75rem; /* Foto 380 px */
+      gap: var(--spacing-4xl);
+      align-items: center;
+    }
+
+    .intro__bild {
+      display: block;
+    }
+
+    .themen,
+    .weitere {
+      gap: 4.5rem;
+    }
+
+    /* Vier Karten in zwei Reihen, abwechselnd breit (784 px) und schmal (480 px). */
+    .themen__karten {
+      grid-template-columns: minmax(0, 480fr) minmax(0, 256fr) minmax(0, 480fr);
+      gap: var(--spacing-2xl);
+    }
+
+    .themen__karte--1 {
+      grid-column: 1 / 3;
+    }
+
+    .themen__karte--2 {
+      grid-column: 3;
+    }
+
+    .themen__karte--3 {
+      grid-column: 1;
+    }
+
+    .themen__karte--4 {
+      grid-column: 2 / 4;
+    }
+
+    .monat {
+      grid-template-columns: 23.75rem minmax(0, 1fr);
+      gap: var(--spacing-4xl);
+    }
+
+    .monat__bild--bogen {
+      display: block;
+    }
+
+    .monat__bild--karte {
+      display: none;
+    }
+
+    .weitere__karten {
+      grid-template-columns: minmax(0, 540fr) minmax(0, 338fr) minmax(0, 338fr);
+      align-items: start;
+    }
+
+    .abschluss {
+      gap: var(--spacing-3xl);
+    }
+  }
+</style>
