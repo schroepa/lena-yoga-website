@@ -1,0 +1,50 @@
+---
+/**
+ * Filter-Pille (Figma: Komponente · Filter-Pille). Ein Link, der zu einem Abschnitt springt.
+ * Ohne JavaScript: Die Seite zeigt alle Kurse, die Pillen führen direkt zur Gruppe.
+ */
+interface Props {
+  label: string;
+  href: string;
+  aktiv?: boolean;
+}
+
+const { label, href, aktiv = false } = Astro.props;
+---
+
+<a
+  class:list={['pille', 'text-label-button', { 'pille--aktiv': aktiv }]}
+  href={href}
+  aria-current={aktiv ? 'true' : undefined}
+>
+  {label}
+</a>
+
+<style>
+  .pille {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--sizing-44);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-full);
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .pille:hover {
+    background: var(--color-sage-150);
+  }
+
+  .pille--aktiv {
+    border-color: var(--surface-inverse);
+    background: var(--surface-inverse);
+    color: var(--text-on-inverse);
+  }
+
+  .pille--aktiv:hover {
+    background: var(--surface-inverse);
+  }
+</style>

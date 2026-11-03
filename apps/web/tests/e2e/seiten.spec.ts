@@ -29,6 +29,23 @@ for (const pfad of seiten) {
       expect(breiter).toBe(false);
     });
 
+    test('läuft auch bei 320 px nicht über den Rand und nichts ragt heraus', async ({ page }) => {
+      await page.setViewportSize({ width: 320, height: 640 });
+      await page.goto(pfad);
+      const ueberstand = await page.evaluate(() => {
+        const breite = document.documentElement.clientWidth;
+        const doc = document.documentElement.scrollWidth - breite;
+        const texte = [...document.querySelectorAll('body *')].filter(
+          (e) =>
+            e.clientWidth > 0 &&
+            e.scrollWidth > e.clientWidth + 1 &&
+            getComputedStyle(e).overflow === 'visible',
+        );
+        return { doc, texte: texte.map((e) => e.tagName + '.' + e.className) };
+      });
+      expect(ueberstand).toEqual({ doc: 0, texte: [] });
+    });
+
     test('lädt keine Ressourcen von fremden Servern', async ({ page, baseURL }) => {
       const fremde: string[] = [];
       page.on('request', (anfrage) => {

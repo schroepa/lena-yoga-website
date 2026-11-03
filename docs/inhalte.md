@@ -26,6 +26,7 @@ zum Beispiel `sanft-ankommen.json`:
 | `wochentag`    | `mo`, `di`, `mi`, `do`, `fr`, `sa`, `so` |
 | `uhrzeit`      | `HH:MM`, zum Beispiel `18:30`            |
 | `dauerMinuten` | ganze Zahl größer null                   |
+| `level`        | optional, Standard ist „Alle Level“      |
 | `buchungslink` | Adresse, die mit `https://` beginnt      |
 
 Einen Kurs entfernen: Datei löschen. Die Seite sortiert automatisch nach Wochentag und Uhrzeit.

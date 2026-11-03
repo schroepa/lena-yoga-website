@@ -1,0 +1,35 @@
+---
+/**
+ * Frage-Eintrag (Figma: Komponente · Frage-Eintrag). Ein <details>, damit es ohne JavaScript auf- und zuklappt.
+ */
+interface Props {
+  frage: string;
+  offen?: boolean;
+}
+
+const { frage, offen = true } = Astro.props;
+---
+
+<details class="frage" open={offen}>
+  <summary class="text-heading-h4">{frage}</summary>
+  <div class="text-body-default frage__antwort">
+    <slot />
+  </div>
+</details>
+
+<style>
+  .frage {
+    padding-block: var(--spacing-xl);
+    border-block-start: 1px solid var(--border-default);
+  }
+
+  .frage summary {
+    cursor: pointer;
+    list-style-position: outside;
+  }
+
+  .frage__antwort {
+    margin-block-start: var(--spacing-sm);
+    color: var(--text-muted);
+  }
+</style>
