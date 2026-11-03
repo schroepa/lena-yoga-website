@@ -16,6 +16,7 @@ export const kursSchema = z.object({
     .regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Uhrzeit im Format HH:MM, zum Beispiel 18:30'),
   dauerMinuten: z.number().int().positive(),
   beschreibung: z.string(),
+  level: z.string().min(1).default('Alle Level'),
   buchungslink: z.url({ protocol: /^https$/ }),
 });
 

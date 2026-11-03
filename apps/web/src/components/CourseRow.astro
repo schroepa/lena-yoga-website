@@ -1,0 +1,76 @@
+---
+/**
+ * Kurs-Zeile (Figma: Komponente · Kurs-Zeile). Mobil untereinander, ab Tablet in einer Zeile.
+ */
+import Button from './Button.astro';
+
+interface Props {
+  zeit: string;
+  titel: string;
+  beschreibung: string;
+  dauer: string;
+  level: string;
+  href: string;
+}
+
+const { zeit, titel, beschreibung, dauer, level, href } = Astro.props;
+---
+
+<li class="zeile">
+  <div class="zeile__text">
+    <p class="text-label-eyebrow zeile__zeit">{zeit}</p>
+    <h3 class="text-heading-h3">{titel}</h3>
+    <p class="text-body-default zeile__beschreibung">{beschreibung}</p>
+  </div>
+  <p class="text-body-small zeile__meta">
+    <span>{dauer}</span>
+    <span class="zeile__level">{level}</span>
+  </p>
+  <Button
+    label="Platz sichern"
+    stil="sekundaer"
+    href={href}
+    ariaLabel={`Platz sichern: ${titel}`}
+    vollbreite
+    class="zeile__knopf"
+  />
+</li>
+
+<style>
+  .zeile {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-lg);
+  }
+
+  .zeile__text {
+    display: grid;
+    gap: var(--spacing-sm);
+  }
+
+  .zeile__zeit,
+  .zeile__beschreibung,
+  .zeile__level {
+    color: var(--text-muted);
+  }
+
+  .zeile__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin: 0;
+  }
+
+  @media (min-width: 48rem) {
+    .zeile {
+      grid-template-columns: minmax(0, 1fr) 6.875rem auto;
+      gap: var(--spacing-3xl);
+      align-items: center;
+    }
+
+    .zeile__meta {
+      display: grid;
+      gap: var(--spacing-2xs);
+    }
+  }
+</style>

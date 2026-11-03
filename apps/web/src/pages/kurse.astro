@@ -1,25 +1,74 @@
 ---
 /**
- * Kurse (Prototyp). Die Kurse stehen als Dateien in src/content/kurse. Das endgültige Design folgt in Schritt 4.
+ * Kurse (Figma: Kurse · Mobile und Kurse · Desktop).
+ * Die Kurse stehen als Dateien in src/content/kurse. Ablauf und Fragen sind Texte aus dem Figma-Entwurf
+ * und werden vor dem Livegang mit Lena abgestimmt.
  */
+import Band from '../components/Band.astro';
 import Button from '../components/Button.astro';
+import CourseRow from '../components/CourseRow.astro';
+import FaqItem from '../components/FaqItem.astro';
+import FilterChip from '../components/FilterChip.astro';
+import Photo from '../components/Photo.astro';
+import ProcessStep from '../components/ProcessStep.astro';
+import Tag from '../components/Tag.astro';
+import introBild from '../assets/fotos/kurse-intro.jpg';
+import { hauptaktion } from '../data/navigation';
 import Base from '../layouts/Base.astro';
 import { ladeKurse } from '../lib/inhalte';
 
 const kurse = await ladeKurse();
+
 const gruppen = [
-  { ort: 'online', titel: 'Online über Sophies Safe Space' },
-  { ort: 'studio', titel: 'Im Studio vor Ort' },
+  {
+    ort: 'online',
+    tag: 'Online',
+    tagFarbe: 'sage',
+    titel: 'Online über Sophies Safe Space',
+    text: 'Die Stunden laufen live über Sophies Safe Space. Du brauchst eine Matte und etwas Platz.',
+    hinweis: undefined,
+  },
+  {
+    ort: 'studio',
+    tag: 'Im Studio',
+    tagFarbe: 'butter',
+    titel: 'Im Studio vor Ort',
+    text: 'Im Studio stehen Blöcke, Decken, Bolster und Stühle bereit. Die Gruppen sind klein, damit Lena alle sehen kann.',
+    hinweis: 'Adresse und Anfahrt folgen.',
+  },
 ] as const;
-const tage: Record<string, string> = {
-  mo: 'Montag',
-  di: 'Dienstag',
-  mi: 'Mittwoch',
-  do: 'Donnerstag',
-  fr: 'Freitag',
-  sa: 'Samstag',
-  so: 'Sonntag',
-};
+
+const tage = {
+  mo: 'Mo',
+  di: 'Di',
+  mi: 'Mi',
+  do: 'Do',
+  fr: 'Fr',
+  sa: 'Sa',
+  so: 'So',
+} as const;
+
+const schritte = [
+  { titel: 'Probestunde wählen', text: 'Such dir einen Kurs aus, online oder im Studio.' },
+  { titel: 'Fragen stellen', text: 'Wenn etwas unklar ist, schreib Lena vorab eine Nachricht.' },
+  { titel: 'Mitmachen', text: 'Komm zehn Minuten früher, dann bleibt Zeit zum Einrichten.' },
+];
+
+const fragen = [
+  {
+    frage: 'Muss ich beweglich sein?',
+    antwort:
+      'Nein. Zu jeder Übung gibt es Varianten und Hilfsmittel, die sich deiner Beweglichkeit anpassen.',
+  },
+  {
+    frage: 'Brauche ich Vorkenntnisse?',
+    antwort: 'Nein. Du kannst jederzeit einsteigen, auch ohne Erfahrung.',
+  },
+  {
+    frage: 'Was ist, wenn ich mich unsicher fühle?',
+    antwort: 'Schreib Lena vorher kurz. Sie nimmt sich gern Zeit für deine Fragen.',
+  },
+];
 ---
 
 <Base
@@ -27,81 +76,228 @@ const tage: Record<string, string> = {
   description="Yoga mit Lena online über Sophies Safe Space und im Studio. Alle Kurse für Menschen in jeder Körperform."
   path="/kurse"
 >
-  <div class="container kurse">
-    <h1 class="text-heading-h1">Kurse online und im Studio</h1>
+  <div class="container seite">
+    <section class="intro" aria-labelledby="kurse-titel">
+      <div class="intro__text">
+        <h1 id="kurse-titel" class="text-display">
+          Kurse online und im Studio
+        </h1>
+        <p class="text-body-large intro__beschreibung">
+          Alle Kurse sind für Menschen in jeder Körperform gedacht. Du kannst online von zu Hause
+          oder im Studio mitmachen.
+        </p>
+        <nav class="intro__filter" aria-label="Kurse springen">
+          <FilterChip label="Alle" href="#kurse-online" aktiv />
+          <FilterChip label="Online" href="#kurse-online" />
+          <FilterChip label="Im Studio" href="#kurse-studio" />
+        </nav>
+      </div>
+      <div class="intro__bild">
+        <Photo
+          bild={introBild}
+          alt="Lena sitzt auf einer hellen Steintreppe, die Handflächen über dem Kopf zusammengelegt."
+          form="bogen"
+          breite={380}
+          format="intro"
+          priority
+        />
+      </div>
+    </section>
 
     {gruppen.map((gruppe) => (
-      <section aria-labelledby={`kurse-${gruppe.ort}`}>
-        <h2 id={`kurse-${gruppe.ort}`} class="text-heading-h2">
-          {gruppe.titel}
-        </h2>
-        <ul class="kurs-liste">
+      <section class="gruppe" aria-labelledby={`kurse-${gruppe.ort}`}>
+        <div class="gruppe__einleitung">
+          <Tag text={gruppe.tag} farbe={gruppe.tagFarbe} />
+          <h2 id={`kurse-${gruppe.ort}`} class="text-heading-h2">
+            {gruppe.titel}
+          </h2>
+          <p class="text-body-default gruppe__text">{gruppe.text}</p>
+          {gruppe.hinweis && <p class="text-body-default gruppe__text">{gruppe.hinweis}</p>}
+        </div>
+        <ul class="gruppe__liste">
           {kurse
             .filter((k) => k.ort === gruppe.ort)
             .map((kurs) => (
-              <li class="kurs">
-                <div class="kurs__text">
-                  <p class="text-label-eyebrow kurs__zeit">
-                    {tage[kurs.wochentag]} · {kurs.uhrzeit} Uhr · {kurs.dauerMinuten} Min
-                  </p>
-                  <h3 class="text-heading-h3">{kurs.titel}</h3>
-                  <p class="text-body-default">{kurs.beschreibung}</p>
-                </div>
-                <Button
-                  stil="sekundaer"
-                  label="Platz sichern"
-                  href={kurs.buchungslink}
-                  ariaLabel={`Platz sichern: ${kurs.titel}`}
-                />
-              </li>
+              <CourseRow
+                zeit={`${tage[kurs.wochentag]} · ${kurs.uhrzeit}`}
+                titel={kurs.titel}
+                beschreibung={kurs.beschreibung}
+                dauer={`${String(kurs.dauerMinuten)} Min`}
+                level={kurs.level}
+                href={kurs.buchungslink}
+              />
             ))}
         </ul>
       </section>
     ))}
+
+    <section class="ablauf" aria-labelledby="ablauf-titel">
+      <h2 id="ablauf-titel" class="text-heading-h2">
+        So fängst du an
+      </h2>
+      <ol class="ablauf__schritte">
+        {schritte.map((schritt, i) => (
+          <ProcessStep nummer={i + 1} {...schritt} />
+        ))}
+      </ol>
+    </section>
+
+    <section class="fragen" aria-labelledby="fragen-titel">
+      <h2 id="fragen-titel" class="text-heading-h2">
+        Häufige Fragen
+      </h2>
+      <div class="fragen__liste">
+        {fragen.map((f) => (
+          <FaqItem frage={f.frage}>
+            <p>{f.antwort}</p>
+          </FaqItem>
+        ))}
+      </div>
+    </section>
+
+    <Band farbe="highlight">
+      <div class="abschluss">
+        <h2 class="text-display">Probestunde buchen und Lena kennenlernen.</h2>
+        <p class="text-body-large abschluss__text">
+          Die erste Stunde ist ein Kennenlernen. Du wählst, ob online über Sophies Safe Space oder
+          im Studio.
+        </p>
+        <div class="knoepfe">
+          <Button label={hauptaktion.label} href={hauptaktion.href} />
+        </div>
+      </div>
+    </Band>
   </div>
 </Base>
 
 <style>
-  .kurse {
+  .seite {
+    --abschnittsabstand: var(--spacing-4xl);
     display: grid;
-    gap: var(--spacing-layout-section-md);
-    padding-block: var(--spacing-layout-section-lg);
+    /* minmax(0, 1fr): Spalte darf schmaler sein als ihr Inhalt, sonst läuft die Seite bei 320 px über. */
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--abschnittsabstand);
+    padding-block: var(--abschnittsabstand) 0;
   }
 
-  section {
+  .knoepfe {
     display: grid;
-    gap: var(--spacing-xl);
+    justify-items: stretch;
   }
 
-  .kurs-liste {
+  .intro {
     display: grid;
-    gap: var(--spacing-xl);
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .intro__text {
+    display: grid;
+    gap: var(--sizing-40);
+    justify-items: start;
+  }
+
+  .intro__beschreibung,
+  .gruppe__text,
+  .abschluss__text {
+    color: var(--text-muted);
+  }
+
+  .abschluss__text {
+    color: inherit;
+    max-width: 42.5rem;
+  }
+
+  .intro__filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
+
+  /* Das Foto gehört nur zur Desktop-Ansicht. */
+  .intro__bild {
+    display: none;
+  }
+
+  .gruppe {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sizing-56);
+  }
+
+  .gruppe__einleitung {
+    display: grid;
+    gap: var(--spacing-md);
+    align-content: start;
+    justify-items: start;
+  }
+
+  .gruppe__liste,
+  .ablauf__schritte {
+    display: grid;
+    gap: var(--spacing-2xl);
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .kurs {
+  .ablauf,
+  .fragen {
     display: grid;
-    gap: var(--spacing-md);
-    align-items: center;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sizing-56);
   }
 
-  .kurs__text {
+  .abschluss {
     display: grid;
-    gap: var(--spacing-xs);
-    max-width: 42rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-2xl);
   }
 
-  .kurs__zeit,
-  .kurs p {
-    color: var(--text-muted);
+  /* Lange Wörter wie „kennenlernen“ müssen auf schmalen Telefonen umbrechen können. */
+  .abschluss h2 {
+    hyphens: auto;
+    overflow-wrap: break-word;
   }
 
   @media (min-width: 48rem) {
-    .kurs {
-      grid-template-columns: 1fr auto;
-      gap: var(--spacing-xl);
+    .seite {
+      --abschnittsabstand: var(--spacing-6xl);
+      /* Der Fußbereich bringt schon 96 px mit, der Rest ergibt 160 px bis zum Fuß. */
+      padding-block-end: calc(var(--abschnittsabstand) - var(--spacing-layout-section-lg));
+    }
+
+    .knoepfe {
+      justify-self: start;
+      justify-items: start;
+    }
+
+    .intro {
+      grid-template-columns: minmax(0, 1fr) 23.75rem; /* Foto 380 px */
+      gap: var(--spacing-4xl);
+      align-items: center;
+    }
+
+    .intro__bild {
+      display: block;
+    }
+
+    .gruppe,
+    .fragen {
+      grid-template-columns: 23.75rem minmax(0, 1fr);
+      gap: var(--spacing-4xl);
+      align-items: start;
+    }
+
+    .ablauf {
+      gap: 4.5rem;
+    }
+
+    .ablauf__schritte {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .abschluss {
+      gap: var(--spacing-3xl);
     }
   }
 </style>

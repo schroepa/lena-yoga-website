@@ -1,0 +1,42 @@
+---
+/**
+ * Ablauf-Schritt (Figma: Komponente · Ablauf-Schritt). Nummer im gelben Kreis, Titel und Text.
+ */
+interface Props {
+  nummer: number;
+  titel: string;
+  text: string;
+}
+
+const { nummer, titel, text } = Astro.props;
+---
+
+<li class="schritt">
+  <span class="schritt__nummer text-heading-h3" aria-hidden="true">
+    {nummer}
+  </span>
+  <h3 class="text-heading-h4">{titel}</h3>
+  <p class="text-body-default">{text}</p>
+</li>
+
+<style>
+  .schritt {
+    display: grid;
+    gap: var(--spacing-md);
+    align-content: start;
+    justify-items: start;
+  }
+
+  .schritt__nummer {
+    display: grid;
+    place-items: center;
+    width: var(--sizing-48);
+    height: var(--sizing-48);
+    border-radius: var(--radius-full);
+    background: var(--highlight-subtle);
+  }
+
+  .schritt p {
+    color: var(--text-muted);
+  }
+</style>
