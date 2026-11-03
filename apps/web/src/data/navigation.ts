@@ -1,5 +1,5 @@
 /**
- * Navigation der Seite. Später kommt sie aus dem CMS (Global "Navigation").
+ * Navigation der Seite. Sie steht hier im Code und wird per Pull Request geändert.
  * Die Seiten selbst entstehen in den nächsten Schritten.
  */
 export interface Link {

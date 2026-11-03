@@ -8,23 +8,11 @@ minimumReleaseAge: 4320
 
 # Keine Rückschritte bei Herkunftsnachweisen (Provenance) eines Pakets.
 trustPolicy: no-downgrade
-# Einzige Ausnahme, bewusst freigegeben: Payload schreibt pino@9.14.0 vor. Diese Version
-# hat (anders als frühere) keinen Herkunftsnachweis. Erneut prüfen, sobald Payload aktualisiert wird.
-trustPolicyExclude:
-  - pino@9.14.0
 
 # Nur diese Pakete dürfen beim Installieren Skripte ausführen.
 onlyBuiltDependencies:
   - esbuild
   - sharp
-  - '@parcel/watcher'
 
 # Abhängigkeiten werden nur über das Lockfile aufgelöst.
 verifyDepsBeforeRun: error
-
-# Sicherheitsupdates für indirekte Abhängigkeiten von Payload, bis Payload selbst aktualisiert.
-# Jede Zeile hat einen Grund (Advisory) und wird mit den Tests geprüft.
-overrides:
-  dompurify: '>=3.4.17' # kritische und hohe Lücken in DOMPurify (über monaco-editor im Admin)
-  happy-dom: '>=21.0.4' # SSRF und Import-Fehler in happy-dom (über Lexical headless)
-  '@esbuild-kit/core-utils>esbuild': '^0.25.0' # Entwicklungsserver-Lücke in altem esbuild (nur CLI)
