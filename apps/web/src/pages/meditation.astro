@@ -1,0 +1,221 @@
+---
+/**
+ * Meditation (Figma: Meditation · Mobile und Meditation · Desktop).
+ * Es gibt noch keine Aufnahmen: Die Karten zeigen die geplanten Meditationen ohne Wiedergabe.
+ * Texte stammen aus dem Figma-Entwurf und werden vor dem Livegang mit Lena abgestimmt.
+ */
+import AudioPlayer from '../components/AudioPlayer.astro';
+import Band from '../components/Band.astro';
+import Button from '../components/Button.astro';
+import Photo from '../components/Photo.astro';
+import introBild from '../assets/fotos/lena-bogen.jpg';
+import { hauptaktion } from '../data/navigation';
+import Base from '../layouts/Base.astro';
+
+const aufnahmen = [
+  { titel: 'Ankommen im Moment', meta: 'Meditation · 10 Min' },
+  { titel: 'Sanft in den Schlaf', meta: 'Meditation · 15 Min' },
+  { titel: 'Atem beobachten', meta: 'Meditation · 8 Min' },
+  { titel: 'Körper spüren im Liegen', meta: 'Meditation · 20 Min' },
+];
+---
+
+<Base
+  title="Meditation | Lena Yoga"
+  description="Geführte Meditationen, von Lena selbst eingesprochen: zum Ankommen, Einschlafen, Atem beobachten und Körper spüren."
+  path="/meditation"
+>
+  <div class="container seite">
+    <section class="intro" aria-labelledby="meditation-titel">
+      <div class="intro__text">
+        <h1 id="meditation-titel" class="text-display">
+          Meditationen
+        </h1>
+        <p class="text-body-large intro__beschreibung">
+          Lena spricht jede Meditation selbst ein. Du hörst sie, wann es dir passt.
+        </p>
+      </div>
+      <div class="intro__bild">
+        <Photo
+          bild={introBild}
+          alt="Lena sitzt im Schneidersitz auf der Matte und dreht den Oberkörper leicht zur Seite."
+          form="bogen"
+          breite={380}
+          format="meditation"
+          priority
+        />
+      </div>
+    </section>
+
+    <Band farbe="lilac" class="aufnahmen">
+      <div class="aufnahmen__inhalt">
+        <div class="aufnahmen__titel">
+          <h2 class="text-heading-h2">Alle Aufnahmen</h2>
+          <p class="text-body-default">Vier Meditationen, von acht bis zwanzig Minuten.</p>
+        </div>
+        <div class="aufnahmen__liste">
+          {aufnahmen.map((a) => (
+            <AudioPlayer {...a} />
+          ))}
+        </div>
+      </div>
+    </Band>
+
+    <section class="hoeren" aria-labelledby="hoeren-titel">
+      <h2 id="hoeren-titel" class="text-heading-h2">
+        Vor dem Hören
+      </h2>
+      <div class="hoeren__text">
+        <p class="text-body-large">
+          Such dir einen Platz, an dem du ungestört sitzen oder liegen kannst.
+        </p>
+        <p class="text-body-large">Mit Kopfhörern hörst du Lenas Stimme am deutlichsten.</p>
+      </div>
+    </section>
+
+    <Band farbe="highlight">
+      <div class="abschluss">
+        <h2 class="text-display">Probestunde buchen und Lena kennenlernen.</h2>
+        <p class="text-body-large abschluss__text">
+          Die erste Stunde ist ein Kennenlernen. Du wählst, ob online über Sophies Safe Space oder
+          im Studio.
+        </p>
+        <div class="knoepfe">
+          <Button label={hauptaktion.label} href={hauptaktion.href} />
+        </div>
+      </div>
+    </Band>
+  </div>
+</Base>
+
+<style>
+  .seite {
+    --abschnittsabstand: var(--spacing-4xl);
+    display: grid;
+    /* minmax(0, 1fr): Spalte darf schmaler sein als ihr Inhalt, sonst läuft die Seite bei 320 px über. */
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--abschnittsabstand);
+    padding-block: var(--abschnittsabstand) 0;
+  }
+
+  .knoepfe {
+    display: grid;
+    justify-items: stretch;
+  }
+
+  .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sizing-40);
+  }
+
+  .intro__text {
+    display: grid;
+    gap: var(--sizing-40);
+    justify-items: start;
+  }
+
+  .intro__beschreibung {
+    max-width: 35rem;
+    color: var(--text-muted);
+  }
+
+  /* Der Rand der Fläche ist mobil kleiner als bei den anderen Bändern. */
+  .seite :global(.aufnahmen) {
+    padding: var(--spacing-xl);
+  }
+
+  .aufnahmen__inhalt {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sizing-40);
+  }
+
+  .aufnahmen__titel {
+    display: grid;
+    gap: var(--spacing-md);
+    align-content: start;
+  }
+
+  .aufnahmen__titel p {
+    color: var(--text-muted);
+  }
+
+  .aufnahmen__liste {
+    display: grid;
+    gap: var(--spacing-lg);
+  }
+
+  .hoeren {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-xl);
+  }
+
+  .hoeren__text {
+    display: grid;
+    gap: var(--spacing-lg);
+    max-width: 38.75rem;
+  }
+
+  .abschluss {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-2xl);
+  }
+
+  .abschluss__text {
+    max-width: 42.5rem;
+  }
+
+  /* Lange Wörter wie „kennenlernen“ müssen auf schmalen Telefonen umbrechen können. */
+  .abschluss h2 {
+    hyphens: auto;
+    overflow-wrap: break-word;
+  }
+
+  @media (min-width: 48rem) {
+    .seite {
+      --abschnittsabstand: var(--spacing-6xl);
+      /* Der Fußbereich bringt schon 96 px mit, der Rest ergibt 160 px bis zum Fuß. */
+      padding-block-end: calc(var(--abschnittsabstand) - var(--spacing-layout-section-lg));
+    }
+
+    .knoepfe {
+      justify-self: start;
+      justify-items: start;
+    }
+
+    .intro {
+      grid-template-columns: minmax(0, 1fr) 23.75rem; /* Foto 380 px */
+      gap: var(--spacing-4xl);
+      align-items: center;
+    }
+
+    .seite :global(.aufnahmen) {
+      padding: var(--spacing-4xl);
+    }
+
+    .aufnahmen__inhalt {
+      grid-template-columns: 22.5rem minmax(0, 1fr); /* Titel 360 px */
+      gap: var(--spacing-4xl);
+      align-items: start;
+    }
+
+    .aufnahmen__liste {
+      gap: var(--spacing-xl);
+    }
+
+    .hoeren {
+      gap: var(--sizing-40);
+    }
+
+    .hoeren__text {
+      gap: var(--spacing-lg);
+    }
+
+    .abschluss {
+      gap: var(--spacing-3xl);
+    }
+  }
+</style>

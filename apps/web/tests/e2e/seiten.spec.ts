@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-const seiten = ['/', '/kurse', '/yoga-entdecken'];
+const seiten = ['/', '/kurse', '/yoga-entdecken', '/meditation'];
 
 for (const pfad of seiten) {
   test.describe(`Seite ${pfad}`, () => {

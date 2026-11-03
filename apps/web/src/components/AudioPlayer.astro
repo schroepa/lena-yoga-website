@@ -12,22 +12,35 @@ import playIcon from '../assets/icon-play.svg';
 interface Props {
   titel: string;
   meta: string;
-  href: string;
+  /** Ohne Link ist die Karte nur eine Anzeige (zum Beispiel auf der Meditationsseite selbst). */
+  href?: string;
 }
 
 const { titel, meta, href } = Astro.props;
 ---
 
 <article class="player">
-  <a class="player__link" href={href}>
-    <span class="player__play" aria-hidden="true">
-      <Image src={playIcon} alt="" width={22} height={22} />
-    </span>
-    <span class="player__text">
-      <span class="text-heading-h4 player__titel">{titel}</span>
-      <span class="text-body-small player__meta">{meta}</span>
-    </span>
-  </a>
+  {href ? (
+    <a class="player__link" href={href}>
+      <span class="player__play" aria-hidden="true">
+        <Image src={playIcon} alt="" width={22} height={22} />
+      </span>
+      <span class="player__text">
+        <span class="text-heading-h4 player__titel">{titel}</span>
+        <span class="text-body-small player__meta">{meta}</span>
+      </span>
+    </a>
+  ) : (
+    <div class="player__link">
+      <span class="player__play" aria-hidden="true">
+        <Image src={playIcon} alt="" width={22} height={22} />
+      </span>
+      <div class="player__text">
+        <h3 class="text-heading-h4 player__titel">{titel}</h3>
+        <span class="text-body-small player__meta">{meta}</span>
+      </div>
+    </div>
+  )}
 </article>
 
 <style>
