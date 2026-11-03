@@ -1,0 +1,51 @@
+---
+/**
+ * Band (Figma: Komponente · Band): eine abgerundete Fläche in Farbe, die einen Abschnitt trägt.
+ * Farben: "lilac" (Meditation), "inverse" (Lena, dunkel), "highlight" (Abschluss, gelb).
+ */
+interface Props {
+  farbe: 'lilac' | 'inverse' | 'highlight';
+  class?: string;
+}
+
+const { farbe, class: klasse } = Astro.props;
+---
+
+<section class:list={['band', `band--${farbe}`, klasse]}>
+  <slot />
+</section>
+
+<style>
+  .band {
+    padding: var(--sizing-40);
+    border-radius: var(--radius-2xl);
+  }
+
+  /* Sehr schmale Telefone (320 px): weniger Rand, damit die Überschriften Platz haben. */
+  @media (max-width: 23.75rem) {
+    .band {
+      padding: var(--spacing-lg);
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .band {
+      padding: var(--spacing-4xl);
+    }
+  }
+
+  .band--lilac {
+    background: var(--color-lilac-150);
+    color: var(--text-primary);
+  }
+
+  .band--inverse {
+    background: var(--surface-inverse);
+    color: var(--text-on-inverse);
+  }
+
+  .band--highlight {
+    background: var(--highlight-default);
+    color: var(--text-primary);
+  }
+</style>

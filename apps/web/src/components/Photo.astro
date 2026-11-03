@@ -1,0 +1,113 @@
+---
+/**
+ * Foto (Figma: Komponente · Foto). Formen: "bogen" (oben rund) und "karte" (abgerundetes Rechteck).
+ * Bilder laufen durch die Astro-Bildpipeline (AVIF/WebP, srcset, feste Maße gegen Layoutsprünge).
+ * Das Bild ganz oben auf der Seite (LCP) bekommt priority, alle anderen laden verzögert.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  bild: ImageMetadata;
+  /** Beschreibt, was zu sehen ist. Leer nur, wenn das Bild rein dekorativ ist. */
+  alt: string;
+  form?: 'bogen' | 'karte';
+  /** Breite bei voller Darstellung in Pixel (für die Auswahl der Bildgrößen). */
+  breite: number;
+  /**
+   * Proportionen aus dem Design. Es gibt sie als feste Varianten, weil die Content-Security-Policy
+   * keine Inline-Styles erlaubt: "hero" 13:16, "lena" 11:13 (mobil schmaler), "karte" fest 220 px hoch.
+   */
+  format: 'hero' | 'lena' | 'karte';
+  /** Welcher Teil des Bildes sichtbar bleibt, wenn zugeschnitten wird. */
+  ausschnitt?: 'mitte' | 'unten' | undefined;
+  priority?: boolean;
+  class?: string;
+}
+
+const {
+  bild,
+  alt,
+  form = 'karte',
+  breite,
+  format,
+  ausschnitt = 'mitte',
+  priority = false,
+  class: klasse,
+} = Astro.props;
+---
+
+<div class:list={['foto', `foto--${form}`, `foto--${format}`, `foto--${ausschnitt}`, klasse]}>
+  <div class="foto__rahmen">
+    <Image
+      src={bild}
+      alt={alt}
+      width={breite}
+      layout="constrained"
+      format="webp"
+      quality={80}
+      priority={priority}
+      sizes={`(min-width: 48rem) ${String(breite)}px, 100vw`}
+    />
+  </div>
+</div>
+
+<style>
+  .foto {
+    /* Damit der Bogen seine Rundung aus der Breite des Fotos berechnen kann (cqw). */
+    container-type: inline-size;
+    width: 100%;
+  }
+
+  .foto__rahmen {
+    overflow: hidden;
+    width: 100%;
+    background: var(--color-sage-150);
+  }
+
+  /* Der Ausschnitt entsteht im Browser (object-fit), nicht beim Verkleinern des Bildes. */
+  .foto :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+
+  .foto--unten :global(img) {
+    object-position: 50% 85%;
+  }
+
+  .foto--hero .foto__rahmen {
+    aspect-ratio: 358 / 440;
+  }
+
+  .foto--lena .foto__rahmen {
+    aspect-ratio: 278 / 360;
+  }
+
+  .foto--karte .foto__rahmen {
+    height: 220px;
+  }
+
+  @media (min-width: 48rem) {
+    .foto--hero .foto__rahmen {
+      aspect-ratio: 520 / 640;
+    }
+
+    .foto--lena .foto__rahmen {
+      aspect-ratio: 440 / 520;
+    }
+  }
+
+  .foto--karte .foto__rahmen {
+    border-radius: var(--radius-lg);
+  }
+
+  .foto--bogen .foto__rahmen {
+    /* Oben ein Halbkreis über die ganze Breite, unten weiche Ecken. */
+    border-start-start-radius: 50cqw;
+    border-start-end-radius: 50cqw;
+    border-end-start-radius: var(--radius-xl);
+    border-end-end-radius: var(--radius-xl);
+  }
+</style>

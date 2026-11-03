@@ -1,0 +1,73 @@
+---
+/**
+ * Audio-Player (Figma: Komponente · Audio-Player), vorerst als Vorschau-Karte.
+ * Es gibt noch keine Aufnahmen. Darum führt die Karte zur Meditationsseite und zeigt weder
+ * einen Fortschritt noch Zeiten, die sie nicht halten kann. Sobald es Audio gibt, kommt hier
+ * das echte Element (<audio controls>) hinein.
+ */
+import { Image } from 'astro:assets';
+
+import playIcon from '../assets/icon-play.svg';
+
+interface Props {
+  titel: string;
+  meta: string;
+  href: string;
+}
+
+const { titel, meta, href } = Astro.props;
+---
+
+<article class="player">
+  <a class="player__link" href={href}>
+    <span class="player__play" aria-hidden="true">
+      <Image src={playIcon} alt="" width={22} height={22} />
+    </span>
+    <span class="player__text">
+      <span class="text-heading-h4 player__titel">{titel}</span>
+      <span class="text-body-small player__meta">{meta}</span>
+    </span>
+  </a>
+</article>
+
+<style>
+  .player {
+    padding: var(--spacing-component-inset-xl);
+    border-radius: var(--radius-xl);
+    background: var(--surface-raised);
+  }
+
+  .player__link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-component-gap-lg);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .player__play {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: var(--sizing-56);
+    height: var(--sizing-56);
+    border-radius: var(--radius-full);
+    background: var(--surface-inverse);
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .player__link:hover .player__play {
+    background: var(--color-sage-800);
+  }
+
+  .player__text {
+    display: grid;
+    gap: var(--spacing-component-gap-xs);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .player__meta {
+    color: var(--text-muted);
+  }
+</style>
