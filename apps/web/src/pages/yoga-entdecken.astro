@@ -2,7 +2,7 @@
 /**
  * Yoga entdecken (Figma: Yoga entdecken · Mobile und Yoga entdecken · Desktop).
  * Themen, Anleitung des Monats und weitere Anleitungen sind Texte aus dem Figma-Entwurf
- * und werden vor dem Livegang mit Lena abgestimmt. Die Seiten hinter den Links folgen später.
+ * und werden vor dem Livegang mit Lena abgestimmt. Links zu den Anleitungen folgen mit den Seiten dahinter.
  */
 import Band from '../components/Band.astro';
 import Button from '../components/Button.astro';
@@ -24,26 +24,18 @@ const themen = [
   {
     titel: 'Was ist Yoga?',
     text: 'Woher es kommt und was dich in einer Stunde erwartet.',
-    link: 'Grundlagen lesen',
-    href: '/yoga-entdecken/was-ist-yoga',
   },
   {
     titel: 'Was du zur ersten Stunde mitbringst',
     text: 'Kleidung, Matte, Essen vorher: die häufigsten Fragen.',
-    link: 'Ersten Besuch planen',
-    href: '/yoga-entdecken/erste-stunde',
   },
   {
     titel: 'Hilfsmittel im Überblick',
     text: 'Wofür Block, Decke, Bolster und Stuhl gut sind.',
-    link: 'Hilfsmittel entdecken',
-    href: '/yoga-entdecken/hilfsmittel',
   },
   {
     titel: 'Haltungen anpassen',
     text: 'Varianten für jeden Körper, mit und ohne Hilfsmittel.',
-    link: 'Anpassungen ansehen',
-    href: '/yoga-entdecken/haltungen-anpassen',
   },
 ];
 
@@ -62,7 +54,6 @@ const anleitungen = [
     tag: 'Stehen',
     titel: 'Berghaltung',
     meta: '3 Min · Alle Level',
-    href: '/yoga-entdecken/berghaltung',
   },
   {
     bild: introBild,
@@ -71,7 +62,6 @@ const anleitungen = [
     tag: 'Vierfüßler',
     titel: 'Katze und Kuh',
     meta: '5 Min · Alle Level',
-    href: '/yoga-entdecken/katze-und-kuh',
   },
   {
     bild: monatBogen,
@@ -80,7 +70,6 @@ const anleitungen = [
     tag: 'Sitzen',
     titel: 'Drehung auf dem Stuhl',
     meta: '4 Min · Alle Level',
-    href: '/yoga-entdecken/drehung-auf-dem-stuhl',
   },
 ] as const;
 ---
@@ -164,13 +153,6 @@ const anleitungen = [
           titel="Wenn es zieht"
           text="Zieht es an den Knien, lege eine Decke zwischen Waden und Oberschenkel. Kommt das Becken nicht bis zu den Fersen, bleibt es höher."
         />
-        <div class="monat__aktion">
-          <Button
-            label="Ganze Anleitung lesen"
-            stil="sekundaer"
-            href="/yoga-entdecken/kindhaltung"
-          />
-        </div>
       </div>
     </section>
 
@@ -185,14 +167,11 @@ const anleitungen = [
           <GuideCard {...a} />
         ))}
       </div>
-      <div class="weitere__aktion">
-        <Button label="Alle Anleitungen" stil="sekundaer" href="/yoga-entdecken/anleitungen" />
-      </div>
     </section>
 
     <Band farbe="highlight">
       <div class="abschluss">
-        <h2 class="text-display">Probestunde buchen und Lena kennenlernen.</h2>
+        <h2 class="text-display">Probestunde wählen und Lena kennenlernen.</h2>
         <p class="text-body-large abschluss__text">
           Die erste Stunde ist ein Kennenlernen. Du wählst, ob online über Sophies Safe Space oder
           im Studio.
@@ -215,9 +194,7 @@ const anleitungen = [
     padding-block: var(--abschnittsabstand) 0;
   }
 
-  .knoepfe,
-  .monat__aktion,
-  .weitere__aktion {
+  .knoepfe {
     display: grid;
     justify-items: stretch;
   }
@@ -320,9 +297,7 @@ const anleitungen = [
       padding-block-end: calc(var(--abschnittsabstand) - var(--spacing-layout-section-lg));
     }
 
-    .knoepfe,
-    .monat__aktion,
-    .weitere__aktion {
+    .knoepfe {
       justify-self: start;
       justify-items: start;
     }

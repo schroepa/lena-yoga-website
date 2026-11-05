@@ -11,7 +11,8 @@ interface Props {
   kategorie: string;
   titel: string;
   lesezeit: string;
-  href: string;
+  /** Fehlt, solange es die Seite dahinter nicht gibt. */
+  href?: string | undefined;
   bild?: ImageMetadata;
   bildAlt?: string;
   bildAusschnitt?: 'mitte' | 'unten';
@@ -32,9 +33,7 @@ const { kategorie, titel, lesezeit, href, bild, bildAlt = '', bildAusschnitt } =
     />
   )}
   <p class="text-label-eyebrow teaser__kategorie">{kategorie}</p>
-  <h3 class="text-heading-h3">
-    <a href={href}>{titel}</a>
-  </h3>
+  <h3 class="text-heading-h3">{href ? <a href={href}>{titel}</a> : titel}</h3>
   <p class="text-body-small teaser__lesezeit">{lesezeit}</p>
 </article>
 

@@ -25,7 +25,7 @@ export const servicenavigation: readonly Link[] = [
 ];
 
 /** Hauptaktion. Führt vorerst zur Kursübersicht, später zur Buchung bei Sophies Safe Space. */
-export const hauptaktion: Link = { label: 'Probestunde buchen', href: '/kurse' };
+export const hauptaktion: Link = { label: 'Probestunde wählen', href: '/kurse' };
 
 /** Ist der Link die aktuelle Seite? Unterseiten zählen mit (zum Beispiel /kurse/online). */
 export function istAktuell(pfad: string, href: string): boolean {

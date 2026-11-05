@@ -34,7 +34,7 @@ const gruppen = [
     tagFarbe: 'butter',
     titel: 'Im Studio vor Ort',
     text: 'Im Studio stehen Blöcke, Decken, Bolster und Stühle bereit. Die Gruppen sind klein, damit Lena alle sehen kann.',
-    hinweis: 'Adresse und Anfahrt folgen.',
+    hinweis: 'Die Adresse bekommst du nach der Anmeldung.',
   },
 ] as const;
 
@@ -83,13 +83,12 @@ const fragen = [
           Kurse online und im Studio
         </h1>
         <p class="text-body-large intro__beschreibung">
-          Alle Kurse sind für Menschen in jeder Körperform gedacht. Du kannst online von zu Hause
-          oder im Studio mitmachen.
+          Du brauchst keine Vorkenntnisse. Zu jeder Übung gibt es Varianten für deinen Körper, und
+          du kannst online von zu Hause oder im Studio mitmachen.
         </p>
         <nav class="intro__filter" aria-label="Kurse springen">
-          <FilterChip label="Alle" href="#kurse-online" aktiv />
-          <FilterChip label="Online" href="#kurse-online" />
-          <FilterChip label="Im Studio" href="#kurse-studio" />
+          <FilterChip label="Online-Kurse" href="#kurse-online" />
+          <FilterChip label="Studio-Kurse" href="#kurse-studio" />
         </nav>
       </div>
       <div class="intro__bild">
@@ -156,7 +155,7 @@ const fragen = [
 
     <Band farbe="highlight">
       <div class="abschluss">
-        <h2 class="text-display">Probestunde buchen und Lena kennenlernen.</h2>
+        <h2 class="text-display">Probestunde wählen und Lena kennenlernen.</h2>
         <p class="text-body-large abschluss__text">
           Die erste Stunde ist ein Kennenlernen. Du wählst, ob online über Sophies Safe Space oder
           im Studio.
