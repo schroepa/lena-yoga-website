@@ -271,20 +271,13 @@ const fragen = [
     }
 
     .intro {
-      grid-template-columns: minmax(0, 1fr) 23.75rem; /* Foto 380 px */
+      grid-template-columns: minmax(0, 1fr) min(23.75rem, 40%); /* Foto 380 px */
       gap: var(--spacing-4xl);
       align-items: center;
     }
 
     .intro__bild {
       display: block;
-    }
-
-    .gruppe,
-    .fragen {
-      grid-template-columns: 23.75rem minmax(0, 1fr);
-      gap: var(--spacing-4xl);
-      align-items: start;
     }
 
     .ablauf {
@@ -297,6 +290,16 @@ const fragen = [
 
     .abschluss {
       gap: var(--spacing-3xl);
+    }
+  }
+
+  /* Zwei Spalten (Überschrift links, Liste rechts) brauchen Platz: erst ab 1024 px. */
+  @media (min-width: 64rem) {
+    .gruppe,
+    .fragen {
+      grid-template-columns: 23.75rem minmax(0, 1fr);
+      gap: var(--spacing-4xl);
+      align-items: start;
     }
   }
 </style>

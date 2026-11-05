@@ -9,8 +9,8 @@ import LogoMark from './LogoMark.astro';
 <footer class="site-footer">
   <div class="container">
     <div class="site-footer__inner">
-      <p class="site-footer__name text-heading-h4">
-        <LogoMark size={28} />
+      <p class="site-footer__name">
+        <LogoMark size={24} />
         <span>Lena Yoga · Yoga for EveryBody</span>
       </p>
       <nav aria-label="Service">
@@ -47,6 +47,10 @@ import LogoMark from './LogoMark.astro';
     gap: var(--spacing-xs);
     margin: 0;
     color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    font-weight: 600;
+    line-height: 1.4;
   }
 
   .site-footer__links {

@@ -15,8 +15,8 @@ const pfad = Astro.url.pathname;
 <header class="site-header">
   <div class="container site-header__inner">
     <a class="logo" href="/" aria-label="Lena Yoga, zur Startseite">
-      <LogoMark size={36} />
-      <span class="logo__name text-heading-h3">Lena Yoga</span>
+      <LogoMark size={28} />
+      <span class="logo__name">Lena Yoga</span>
     </a>
 
     <nav class="site-nav" aria-label="Hauptnavigation">
@@ -57,8 +57,8 @@ const pfad = Astro.url.pathname;
   <div class="mobile-menu__inhalt">
     <div class="container mobile-menu__kopf">
       <a class="logo" href="/" aria-label="Lena Yoga, zur Startseite">
-        <LogoMark size={36} />
-        <span class="logo__name text-heading-h3">Lena Yoga</span>
+        <LogoMark size={28} />
+        <span class="logo__name">Lena Yoga</span>
       </a>
       <button class="menu-button text-label-button" type="button" data-menue-schliessen>
         <MenuIcon />
@@ -111,6 +111,9 @@ const pfad = Astro.url.pathname;
   }
 
   .logo__name {
+    font-family: var(--font-heading);
+    font-size: var(--step-1);
+    line-height: 1.2;
     white-space: nowrap;
   }
 
@@ -122,25 +125,47 @@ const pfad = Astro.url.pathname;
 
   .site-nav ul {
     display: flex;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-lg);
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
   .site-nav a {
+    position: relative;
+    white-space: nowrap;
     display: inline-flex;
     align-items: center;
     min-height: 2.75rem;
+    /* Die Navigation bleibt auch am Desktop bei höchstens 16 px. */
+    font-size: var(--step-0);
+    line-height: 1.5;
     text-decoration: none;
-    text-underline-offset: 0.35em;
-    text-decoration-thickness: 2px;
   }
 
-  .site-nav a:hover,
-  .site-nav a[aria-current='page'] {
-    text-decoration-line: underline;
-    text-decoration-color: var(--border-strong);
+  /* Der Strich wächst von links nach rechts ein und aus. */
+  .site-nav a::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0.5rem;
+    height: 2px;
+    background: var(--border-strong);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .site-nav a:hover::after,
+  .site-nav a:focus-visible::after,
+  .site-nav a[aria-current='page']::after {
+    transform: scaleX(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-nav a::after {
+      transition: none;
+    }
   }
 
   .menu-button {
@@ -155,7 +180,7 @@ const pfad = Astro.url.pathname;
     cursor: pointer;
   }
 
-  @media (min-width: 48rem) {
+  @media (min-width: 64rem) {
     .site-nav {
       display: block;
     }
