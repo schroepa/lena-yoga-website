@@ -7,7 +7,7 @@ const oeffnen = document.querySelector<HTMLButtonElement>('[data-menue-oeffnen]'
 const schliessen = document.querySelector<HTMLButtonElement>('[data-menue-schliessen]');
 
 if (dialog && oeffnen && schliessen) {
-  const desktop = window.matchMedia('(min-width: 48rem)');
+  const desktop = window.matchMedia('(min-width: 64rem)');
 
   const setzeZustand = (offen: boolean): void => {
     oeffnen.setAttribute('aria-expanded', String(offen));

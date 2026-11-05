@@ -334,17 +334,14 @@ const haltung = [
     }
 
     .hero {
-      grid-template-columns: 1fr auto;
+      /* Das Foto wird höchstens 520 px breit, auf schmaleren Bildschirmen höchstens 45 %. */
+      grid-template-columns: minmax(0, 1fr) min(32.5rem, 45%);
       align-items: center;
       gap: var(--sizing-80);
     }
 
     .hero__text {
       gap: var(--sizing-40);
-    }
-
-    .hero__bild {
-      width: 32.5rem; /* 520 px */
     }
 
     .haltung {
@@ -368,12 +365,8 @@ const haltung = [
     }
 
     .lena__inhalt {
-      grid-template-columns: auto 1fr;
+      grid-template-columns: min(27.5rem, 45%) minmax(0, 1fr);
       align-items: center;
-    }
-
-    .lena__bild {
-      width: 27.5rem; /* 440 px */
     }
 
     .abschluss {

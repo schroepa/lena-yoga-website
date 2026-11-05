@@ -29,6 +29,17 @@ for (const pfad of seiten) {
       expect(breiter).toBe(false);
     });
 
+    test('läuft bei Tablet-Breiten nicht horizontal über den Rand', async ({ page }) => {
+      for (const breite of [768, 846, 1024]) {
+        await page.setViewportSize({ width: breite, height: 800 });
+        await page.goto(pfad);
+        const breiter = await page.evaluate(
+          () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+        );
+        expect(breiter, `bei ${String(breite)} px`).toBe(false);
+      }
+    });
+
     test('läuft auch bei 320 px nicht über den Rand und nichts ragt heraus', async ({ page }) => {
       await page.setViewportSize({ width: 320, height: 640 });
       await page.goto(pfad);

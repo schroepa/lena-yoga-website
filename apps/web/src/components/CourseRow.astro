@@ -64,13 +64,19 @@ const { zeit, titel, beschreibung, dauer, level, href } = Astro.props;
   @media (min-width: 48rem) {
     .zeile {
       grid-template-columns: minmax(0, 1fr) 6.875rem auto;
-      gap: var(--spacing-3xl);
+      gap: var(--spacing-xl);
       align-items: center;
     }
 
     .zeile__meta {
       display: grid;
       gap: var(--spacing-2xs);
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .zeile {
+      gap: var(--spacing-3xl);
     }
   }
 </style>
