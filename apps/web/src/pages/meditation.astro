@@ -9,7 +9,6 @@ import Band from '../components/Band.astro';
 import Button from '../components/Button.astro';
 import Photo from '../components/Photo.astro';
 import introBild from '../assets/fotos/lena-bogen.jpg';
-import { hauptaktion } from '../data/navigation';
 import Base from '../layouts/Base.astro';
 
 const aufnahmen = [
@@ -51,7 +50,9 @@ const aufnahmen = [
       <div class="aufnahmen__inhalt">
         <div class="aufnahmen__titel">
           <h2 class="text-heading-h2">Alle Aufnahmen</h2>
-          <p class="text-body-default">Vier Meditationen, von acht bis zwanzig Minuten.</p>
+          <p class="text-body-default">
+            Vier Meditationen, von acht bis zwanzig Minuten. Die Aufnahmen folgen in Kürze.
+          </p>
         </div>
         <div class="aufnahmen__liste">
           {aufnahmen.map((a) => (
@@ -75,13 +76,13 @@ const aufnahmen = [
 
     <Band farbe="highlight">
       <div class="abschluss">
-        <h2 class="text-display">Probestunde buchen und Lena kennenlernen.</h2>
+        <h2 class="text-display">Lust auf eine Stunde mit Lena?</h2>
         <p class="text-body-large abschluss__text">
           Die erste Stunde ist ein Kennenlernen. Du wählst, ob online über Sophies Safe Space oder
           im Studio.
         </p>
         <div class="knoepfe">
-          <Button label={hauptaktion.label} href={hauptaktion.href} />
+          <Button label="Kurse ansehen" href="/kurse" />
         </div>
       </div>
     </Band>

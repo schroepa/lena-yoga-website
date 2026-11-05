@@ -10,7 +10,7 @@ test.describe('Navigation am Desktop', () => {
     await page.goto('/');
     const nav = page.getByRole('navigation', { name: 'Hauptnavigation' });
     await expect(nav.getByRole('link')).toHaveCount(5);
-    await expect(page.getByRole('link', { name: 'Probestunde buchen' }).first()).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Probestunde wählen' }).first()).toBeVisible();
     await expect(page.getByRole('button', { name: 'Menü' })).toBeHidden();
   });
 
@@ -51,7 +51,7 @@ test.describe('Mobiles Menü', () => {
     await expect(
       dialog.getByRole('navigation', { name: 'Mobile Hauptnavigation' }).getByRole('link'),
     ).toHaveCount(5);
-    await expect(dialog.getByRole('link', { name: 'Probestunde buchen' })).toBeVisible();
+    await expect(dialog.getByRole('link', { name: 'Probestunde wählen' })).toBeVisible();
 
     // Vollbild: Breite und Höhe des Fensters
     const box = await dialog.boundingBox();

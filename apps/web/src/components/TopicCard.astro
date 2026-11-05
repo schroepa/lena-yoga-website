@@ -5,8 +5,9 @@
 interface Props {
   titel: string;
   text: string;
-  link: string;
-  href: string;
+  /** Link-Text und Ziel gehören zusammen und fehlen, solange es die Seite dahinter nicht gibt. */
+  link?: string | undefined;
+  href?: string | undefined;
   class?: string;
 }
 
@@ -16,9 +17,11 @@ const { titel, text, link, href, class: klasse } = Astro.props;
 <article class:list={['thema', klasse]}>
   <h3 class="text-heading-h3">{titel}</h3>
   <p class="text-body-default">{text}</p>
-  <a class="text-label-button" {href}>
-    {link}
-  </a>
+  {link && href && (
+    <a class="text-label-button" {href}>
+      {link}
+    </a>
+  )}
 </article>
 
 <style>

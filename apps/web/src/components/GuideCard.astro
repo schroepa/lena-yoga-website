@@ -15,7 +15,8 @@ interface Props {
   tag: string;
   titel: string;
   meta: string;
-  href: string;
+  /** Fehlt, solange es die Seite dahinter nicht gibt. */
+  href?: string | undefined;
 }
 
 const { bild, bildAlt, bildAusschnitt, tag, titel, meta, href } = Astro.props;
@@ -24,9 +25,7 @@ const { bild, bildAlt, bildAusschnitt, tag, titel, meta, href } = Astro.props;
 <article class="anleitung">
   <Photo bild={bild} alt={bildAlt} breite={540} format="karte" ausschnitt={bildAusschnitt} />
   <Tag text={tag} farbe="sage" />
-  <h3 class="text-heading-h3">
-    <a {href}>{titel}</a>
-  </h3>
+  <h3 class="text-heading-h3">{href ? <a {href}>{titel}</a> : titel}</h3>
   <p class="text-body-small anleitung__meta">{meta}</p>
 </article>
 
