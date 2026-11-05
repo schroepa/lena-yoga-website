@@ -112,7 +112,7 @@ const anleitungen = [
       </div>
     </section>
 
-    <section class="themen" aria-labelledby="themen-titel">
+    <section class="themen" aria-labelledby="themen-titel" data-reveal-gruppe>
       <SectionHeader
         id="themen-titel"
         titel="Wonach suchst du?"
@@ -135,6 +135,7 @@ const anleitungen = [
           form="bogen"
           breite={380}
           format="monat"
+          parallax
         />
       </div>
       <div class="monat__bild monat__bild--karte">
@@ -146,7 +147,7 @@ const anleitungen = [
           format="beitrag"
         />
       </div>
-      <div class="monat__inhalt">
+      <div class="monat__inhalt" data-reveal>
         <Tag text="Anleitung" farbe="sage" />
         <h2 id="monat-titel" class="text-heading-h2">
           Die Kindhaltung mit Decke
@@ -174,7 +175,7 @@ const anleitungen = [
       </div>
     </section>
 
-    <section class="weitere" aria-labelledby="weitere-titel">
+    <section class="weitere" aria-labelledby="weitere-titel" data-reveal-gruppe>
       <SectionHeader
         id="weitere-titel"
         titel="Weitere Anleitungen"
@@ -191,7 +192,7 @@ const anleitungen = [
     </section>
 
     <Band farbe="highlight">
-      <div class="abschluss">
+      <div class="abschluss" data-reveal>
         <h2 class="text-display">Probestunde buchen und Lena kennenlernen.</h2>
         <p class="text-body-large abschluss__text">
           Die erste Stunde ist ein Kennenlernen. Du wählst, ob online über Sophies Safe Space oder

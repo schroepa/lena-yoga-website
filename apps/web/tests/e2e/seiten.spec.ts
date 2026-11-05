@@ -15,6 +15,16 @@ for (const pfad of seiten) {
 
     test('hat keine Barrierefreiheitsfehler (axe, WCAG 2.2 AA)', async ({ page }) => {
       await page.goto(pfad);
+      // Einblendungen laufen 0,7 s; mitten darin wäre der Kontrast nur scheinbar zu gering.
+      // Die an das Scrollen gekoppelten Animationen (Parallax) enden nie und zählen nicht.
+      await page.evaluate(() =>
+        Promise.all(
+          document
+            .getAnimations()
+            .filter((a) => a.timeline instanceof DocumentTimeline)
+            .map((a) => a.finished),
+        ),
+      );
       const ergebnis = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'])
         .analyze();
