@@ -104,7 +104,7 @@ const fragen = [
     </section>
 
     {gruppen.map((gruppe) => (
-      <section class="gruppe" aria-labelledby={`kurse-${gruppe.ort}`}>
+      <section class="gruppe" aria-labelledby={`kurse-${gruppe.ort}`} data-reveal-gruppe>
         <div class="gruppe__einleitung">
           <Tag text={gruppe.tag} farbe={gruppe.tagFarbe} />
           <h2 id={`kurse-${gruppe.ort}`} class="text-heading-h2">
@@ -130,7 +130,7 @@ const fragen = [
       </section>
     ))}
 
-    <section class="ablauf" aria-labelledby="ablauf-titel">
+    <section class="ablauf" aria-labelledby="ablauf-titel" data-reveal>
       <h2 id="ablauf-titel" class="text-heading-h2">
         So fängst du an
       </h2>
@@ -141,7 +141,7 @@ const fragen = [
       </ol>
     </section>
 
-    <section class="fragen" aria-labelledby="fragen-titel">
+    <section class="fragen" aria-labelledby="fragen-titel" data-reveal>
       <h2 id="fragen-titel" class="text-heading-h2">
         Häufige Fragen
       </h2>
@@ -155,7 +155,7 @@ const fragen = [
     </section>
 
     <Band farbe="highlight">
-      <div class="abschluss">
+      <div class="abschluss" data-reveal>
         <h2 class="text-display">Probestunde buchen und Lena kennenlernen.</h2>
         <p class="text-body-large abschluss__text">
           Die erste Stunde ist ein Kennenlernen. Du wählst, ob online über Sophies Safe Space oder

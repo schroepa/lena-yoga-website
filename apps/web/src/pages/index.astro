@@ -65,7 +65,7 @@ const haltung = [
       </div>
     </section>
 
-    <section class="haltung" aria-label="Haltung">
+    <section class="haltung" aria-label="Haltung" data-reveal-gruppe>
       {haltung.map((punkt) => (
         <div class="haltung__punkt">
           <h2 class="text-heading-h3">{punkt.titel}</h2>
@@ -74,7 +74,7 @@ const haltung = [
       ))}
     </section>
 
-    <section class="kurse" aria-labelledby="kurse-titel">
+    <section class="kurse" aria-labelledby="kurse-titel" data-reveal-gruppe>
       <SectionHeader
         id="kurse-titel"
         titel="Online oder im Studio"
@@ -108,7 +108,7 @@ const haltung = [
     </section>
 
     <Band farbe="lilac">
-      <div class="meditation__inhalt">
+      <div class="meditation__inhalt" data-reveal>
         <div class="meditation__kopf">
           <h2 class="text-heading-h2">Meditationen zum Anhören</h2>
           <p class="text-body-large meditation__text">
@@ -122,7 +122,7 @@ const haltung = [
       </div>
     </Band>
 
-    <section class="gedanken" aria-labelledby="gedanken-titel">
+    <section class="gedanken" aria-labelledby="gedanken-titel" data-reveal-gruppe>
       <SectionHeader
         id="gedanken-titel"
         titel="Lenas Gedanken"
@@ -153,7 +153,7 @@ const haltung = [
     </section>
 
     <Band farbe="inverse">
-      <div class="lena__inhalt">
+      <div class="lena__inhalt" data-reveal>
         <div class="lena__bild">
           <Photo
             bild={lenaBild}
@@ -161,6 +161,7 @@ const haltung = [
             form="bogen"
             breite={440}
             format="lena"
+            parallax
           />
         </div>
         <div class="lena__text">
@@ -180,7 +181,7 @@ const haltung = [
     </Band>
 
     <Band farbe="highlight">
-      <div class="abschluss">
+      <div class="abschluss" data-reveal>
         <h2 class="text-display">Probestunde buchen und Lena kennenlernen.</h2>
         <p class="text-body-large abschluss__text">
           Die erste Stunde ist ein Kennenlernen. Du wählst, ob online über Sophies Safe Space oder

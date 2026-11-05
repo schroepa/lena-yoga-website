@@ -95,3 +95,38 @@ html.menue-offen {
     scroll-behavior: auto !important;
   }
 }
+
+/* Weiches Scrollen zu Ankern, nur wenn Bewegung erwünscht ist. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/*
+ * Bewegung (siehe scripts/bewegung.ts). Die Klasse "bewegung" setzt Base.astro nur, wenn JavaScript
+ * läuft und keine reduzierte Bewegung gewünscht ist. Ohne sie bleibt alles sichtbar.
+ * Fällt das Skript aus, blendet die Notfall-Animation nach 4 Sekunden alles ein; sobald es
+ * läuft, setzt es die Klasse "bewegung-bereit" und die Notfall-Animation entfällt.
+ */
+.bewegung :is([data-reveal], [data-reveal-gruppe] > *):not([data-sichtbar]) {
+  opacity: 0;
+  transform: translateY(1.5rem);
+}
+
+/* Meldet sich das Skript nicht, wird die Notfall-Animation nie abgebrochen. */
+.bewegung:not(.bewegung-bereit) :is([data-reveal], [data-reveal-gruppe] > *):not([data-sichtbar]) {
+  animation: reveal-notfall 1ms 4s forwards;
+}
+
+@keyframes reveal-notfall {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Das Bild ist größer als sein Rahmen, damit beim Verschieben nie ein Rand sichtbar wird. */
+.bewegung [data-parallax] img {
+  scale: 1.18;
+}

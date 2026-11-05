@@ -38,6 +38,9 @@ const canonical = new URL(path, Astro.site).href;
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <script is:inline>
       document.documentElement.classList.add('js');
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('bewegung');
+      }
     </script>
     <Font cssVariable="--font-heading" preload />
     <Font cssVariable="--font-body" preload />
@@ -51,6 +54,9 @@ const canonical = new URL(path, Astro.site).href;
       <slot />
     </main>
     <Footer />
+    <script>
+      import '../scripts/bewegung';
+    </script>
   </body>
 </html>
 
