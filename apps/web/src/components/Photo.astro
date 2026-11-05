@@ -22,6 +22,8 @@ interface Props {
   format: 'hero' | 'lena' | 'intro' | 'meditation' | 'karte' | 'beitrag' | 'monat';
   /** Welcher Teil des Bildes sichtbar bleibt, wenn zugeschnitten wird. */
   ausschnitt?: 'mitte' | 'oben' | 'unten' | undefined;
+  /** Das Bild wandert beim Scrollen leicht gegen die Seite. Nicht für das Bild ganz oben (LCP). */
+  parallax?: boolean;
   priority?: boolean;
   class?: string;
 }
@@ -33,6 +35,7 @@ const {
   breite,
   format,
   ausschnitt = 'mitte',
+  parallax = false,
   priority = false,
   class: klasse,
 } = Astro.props;
@@ -42,7 +45,7 @@ const breiten = [...new Set([breite, 640, 750, 828, 1080])].sort((a, b) => a - b
 ---
 
 <div class:list={['foto', `foto--${form}`, `foto--${format}`, `foto--${ausschnitt}`, klasse]}>
-  <div class="foto__rahmen">
+  <div class="foto__rahmen" data-parallax={parallax ? '' : undefined}>
     <Image
       src={bild}
       alt={alt}

@@ -37,7 +37,14 @@ const {
 ---
 
 <article class="kurs-karte">
-  <Photo bild={bild} alt={bildAlt} breite={632} format="karte" ausschnitt={bildAusschnitt} />
+  <Photo
+    bild={bild}
+    alt={bildAlt}
+    breite={632}
+    format="karte"
+    ausschnitt={bildAusschnitt}
+    parallax
+  />
   <div class="kurs-karte__inhalt">
     <Tag text={tag} farbe={tagFarbe} />
     <h3 class="text-heading-h3">{titel}</h3>
